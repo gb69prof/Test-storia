@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seconda guerra mondiale - Test 2</title>
+  <meta name="description" content="Secondo test interattivo sulla Seconda guerra mondiale con 20 domande, correzione automatica, voto finale e mini-lezioni di recupero." />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg2: #1e293b;
+      --card: rgba(255, 255, 255, 0.96);
+      --text: #111827;
+      --muted: #64748b;
+      --accent: #991b1b;
+      --accent2: #ca8a04;
+      --ok: #047857;
+      --bad: #b91c1c;
+      --line: #e5e7eb;
+      --soft: #f8fafc;
+      --shadow: 0 22px 60px rgba(0,0,0,.30);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 8%, rgba(202,138,4,.25), transparent 35%),
+        radial-gradient(circle at 85% 4%, rgba(153,27,27,.24), transparent 34%),
+        linear-gradient(135deg, #020617 0%, #111827 48%, #1e293b 100%);
+    }
+
+    header {
+      max-width: 1120px;
+      margin: auto;
+      padding: 48px 20px 32px;
+      color: white;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr minmax(220px, 300px);
+      gap: 24px;
+      align-items: end;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(8px);
+      font-size: .92rem;
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      font-size: clamp(2rem, 5vw, 4.2rem);
+      line-height: .98;
+      letter-spacing: -0.045em;
+    }
+
+    header p {
+      max-width: 800px;
+      margin: 0;
+      color: rgba(255,255,255,.82);
+      line-height: 1.65;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+    }
+
+    .side-card {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(10px);
+      color: rgba(255,255,255,.88);
+      line-height: 1.5;
+    }
+
+    .side-card strong {
+      display: block;
+      color: white;
+      font-size: 1.16rem;
+      margin-bottom: 6px;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto 56px;
+      padding: 0 20px;
+    }
+
+    .panel {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.5);
+      box-shadow: var(--shadow);
+      overflow: clip;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 16px 18px;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+      font-size: .92rem;
+      color: var(--muted);
+    }
+
+    .progress {
+      height: 10px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress > div {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .25s ease;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: .95rem;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(0,0,0,.14);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .primary {
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #7f1d1d);
+    }
+
+    .secondary {
+      color: #111827;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+    }
+
+    .quiz {
+      display: grid;
+      gap: 16px;
+      padding: 16px;
+    }
+
+    .question {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .qtop {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .num {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: white;
+      font-weight: 950;
+      background: linear-gradient(135deg, var(--accent), #7f1d1d);
+    }
+
+    .question h2 {
+      margin: 4px 0 0;
+      font-size: 1.05rem;
+      line-height: 1.42;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    label.option {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 13px 14px;
+      border: 1px solid #e5e7eb;
+      border-radius: 15px;
+      background: #fafafa;
+      cursor: pointer;
+      line-height: 1.45;
+      transition: border .15s ease, background .15s ease, transform .15s ease;
+    }
+
+    label.option:hover {
+      border-color: var(--accent2);
+      background: #fffbeb;
+      transform: translateX(2px);
+    }
+
+    input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--accent);
+    }
+
+    .option.correct {
+      border-color: rgba(4,120,87,.65);
+      background: rgba(4,120,87,.08);
+    }
+
+    .option.wrong {
+      border-color: rgba(185,28,28,.65);
+      background: rgba(185,28,28,.08);
+    }
+
+    .mini-feedback {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #f9fafb;
+      border: 1px dashed #d1d5db;
+      color: #374151;
+      line-height: 1.55;
+    }
+
+    .mini-feedback strong {
+      color: var(--bad);
+    }
+
+    .results {
+      display: none;
+      padding: 22px;
+      border-top: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff, #f8fafc);
+    }
+
+    .score-card {
+      display: grid;
+      grid-template-columns: minmax(150px, 220px) 1fr;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .score-circle {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      margin: auto;
+      background:
+        radial-gradient(circle at center, white 57%, transparent 58%),
+        conic-gradient(var(--accent) var(--deg, 0deg), #e5e7eb 0deg);
+      box-shadow: inset 0 0 0 1px #e5e7eb, 0 12px 30px rgba(0,0,0,.12);
+    }
+
+    .score-circle span {
+      font-size: 2.3rem;
+      font-weight: 950;
+    }
+
+    .result-title {
+      margin: 0 0 8px;
+      font-size: clamp(1.4rem, 3vw, 2.1rem);
+    }
+
+    .result-meta {
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .judgement {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 850;
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .recovery {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .recovery-item {
+      padding: 14px 15px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--accent);
+      background: white;
+      line-height: 1.55;
+    }
+
+    .recovery-item h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .no-errors {
+      border-left-color: var(--ok);
+      background: rgba(4,120,87,.06);
+    }
+
+    footer {
+      padding: 24px 12px 40px;
+      color: rgba(255,255,255,.62);
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 820px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      header {
+        padding-top: 34px;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        justify-content: stretch;
+      }
+
+      .actions button {
+        flex: 1 1 150px;
+      }
+
+      .score-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      header, .toolbar, footer {
+        display: none;
+      }
+
+      main {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .panel {
+        box-shadow: none;
+        border: 0;
+      }
+
+      .results {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <section class="hero">
+      <div>
+        <div class="badge">☑ Test 2 · Seconda guerra mondiale · domande diverse</div>
+        <h1>Seconda guerra mondiale</h1>
+        <p>
+          Secondo test interattivo: 20 domande a scelta multipla, tre risposte per ogni domanda,
+          voto finale in decimi e mini-lezioni di recupero solo sugli errori commessi.
+        </p>
+      </div>
+      <aside class="side-card">
+        <strong>Obiettivo</strong>
+        Verificare non solo la memoria degli eventi, ma anche la comprensione dei rapporti tra cause,
+        svolte militari, Resistenza, caduta dei regimi e conseguenze del conflitto.
+      </aside>
+    </section>
+  </header>
+
+  <main>
+    <section class="panel">
+      <div class="toolbar">
+        <div>
+          <div class="progress-label">
+            <span id="answeredLabel">Risposte date: 0/20</span>
+            <span id="statusLabel">Test non concluso</span>
+          </div>
+          <div class="progress" aria-hidden="true"><div id="progressBar"></div></div>
+        </div>
+        <div class="actions">
+          <button class="secondary" id="resetBtn" type="button">Ricomincia</button>
+          <button class="secondary" id="printBtn" type="button">Stampa report</button>
+          <button class="primary" id="submitBtn" type="button">Concludi test</button>
+        </div>
+      </div>
+
+      <form id="quiz" class="quiz"></form>
+
+      <section id="results" class="results" aria-live="polite">
+        <div class="score-card">
+          <div class="score-circle" id="scoreCircle"><span id="scoreValue">0</span></div>
+          <div>
+            <h2 class="result-title" id="resultTitle">Report finale</h2>
+            <p class="result-meta" id="resultMeta"></p>
+            <span class="judgement" id="judgement"></span>
+          </div>
+        </div>
+        <h2>Mini-lezioni di recupero</h2>
+        <div class="recovery" id="recovery"></div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    File unico HTML · pronto da copiare in GitHub Pages.
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        q: "Perché la politica di appeasement non riuscì a evitare la guerra?",
+        options: [
+          "Perché le concessioni fatte a Hitler non fermarono la sua espansione, ma la incoraggiarono.",
+          "Perché Francia e Inghilterra attaccarono subito la Germania nel 1936.",
+          "Perché l’Unione Sovietica rifiutò ogni accordo con la Germania prima del 1939."
+        ],
+        answer: 0,
+        lesson: "L’appeasement fu il tentativo di evitare la guerra concedendo alcune richieste a Hitler, come nel caso dei Sudeti. Il problema è che queste concessioni non fermarono l’aggressività tedesca: la alimentarono, perché Hitler capì che le democrazie occidentali esitavano a intervenire."
+      },
+      {
+        q: "Quale vantaggio ottenne Hitler dal Patto Molotov-Ribbentrop?",
+        options: [
+          "Poté invadere la Polonia senza temere subito un attacco sovietico da est.",
+          "Ottenne l’aiuto militare della Francia contro la Gran Bretagna.",
+          "Costrinse il Giappone ad abbandonare l’Asse."
+        ],
+        answer: 0,
+        lesson: "Il Patto Molotov-Ribbentrop garantì temporaneamente a Hitler la neutralità dell’URSS. Questo gli permise di attaccare la Polonia sapendo di non dover combattere subito contro i sovietici."
+      },
+      {
+        q: "Perché l’invasione della Polonia trasformò la crisi europea in guerra aperta?",
+        options: [
+          "Perché Francia e Inghilterra reagirono dichiarando guerra alla Germania.",
+          "Perché l’Italia invase immediatamente l’Unione Sovietica.",
+          "Perché il Giappone bombardò Pearl Harbor nello stesso giorno."
+        ],
+        answer: 0,
+        lesson: "L’invasione della Polonia, il 1° settembre 1939, fu l’atto che fece saltare definitivamente l’equilibrio europeo. Il 3 settembre Francia e Inghilterra dichiararono guerra alla Germania."
+      },
+      {
+        q: "Per quale motivo la Blitzkrieg fu così efficace nei primi anni di guerra?",
+        options: [
+          "Perché combinava rapidità, coordinamento e sorpresa usando carri armati, aerei e fanteria.",
+          "Perché si basava solo sulla difesa delle trincee.",
+          "Perché evitava del tutto l’uso dell’aviazione."
+        ],
+        answer: 0,
+        lesson: "La Blitzkrieg, o guerra lampo, funzionava perché colpiva rapidamente e in modo coordinato. Carri armati, aerei e fanteria agivano insieme per disorientare il nemico e impedirgli di organizzare una difesa efficace."
+      },
+      {
+        q: "Che cosa dimostrò la sconfitta francese del 1940?",
+        options: [
+          "Che la strategia difensiva tradizionale non bastava contro la guerra rapida tedesca.",
+          "Che la Germania era ormai stata sconfitta definitivamente.",
+          "Che la Linea Maginot aveva protetto tutta la Francia senza problemi."
+        ],
+        answer: 0,
+        lesson: "La Francia aveva puntato molto sulla Linea Maginot, ma i tedeschi aggirarono il sistema difensivo passando attraverso Belgio e Olanda. La sconfitta mostrò che la guerra moderna richiedeva rapidità e mobilità, non solo difese statiche."
+      },
+      {
+        q: "Perché il governo di Vichy viene definito collaborazionista?",
+        options: [
+          "Perché governò la Francia meridionale collaborando con la Germania nazista.",
+          "Perché guidò la Resistenza francese contro i tedeschi.",
+          "Perché dichiarò guerra alla Germania insieme all’URSS."
+        ],
+        answer: 0,
+        lesson: "Dopo la sconfitta della Francia, il sud del Paese fu affidato al governo di Vichy, guidato da Pétain. Viene detto collaborazionista perché accettò di collaborare con la Germania nazista."
+      },
+      {
+        q: "Perché la battaglia d’Inghilterra impedì a Hitler di dominare completamente l’Europa occidentale?",
+        options: [
+          "Perché la RAF resistette ai bombardamenti e rese impossibile l’invasione della Gran Bretagna.",
+          "Perché l’Italia occupò Londra prima della Germania.",
+          "Perché l’URSS liberò Parigi nel 1940."
+        ],
+        answer: 0,
+        lesson: "La Gran Bretagna resistette alla campagna aerea tedesca grazie alla RAF. Poiché Hitler non riuscì a ottenere il controllo dei cieli, l’invasione dell’isola non poté avvenire."
+      },
+      {
+        q: "Perché l’ingresso dell’Italia in guerra fu una scelta opportunistica?",
+        options: [
+          "Perché Mussolini entrò nel conflitto quando pensava che la vittoria tedesca fosse ormai vicina.",
+          "Perché l’Italia era stata attaccata direttamente dalla Francia nel 1939.",
+          "Perché l’Italia voleva difendere la Polonia dall’invasione tedesca."
+        ],
+        answer: 0,
+        lesson: "Mussolini dichiarò guerra il 10 giugno 1940 perché credeva che la Germania avesse già quasi vinto. Fu una scelta di convenienza politica, ma l’esercito italiano mostrò presto gravi debolezze."
+      },
+      {
+        q: "Che cosa rivelarono le difficoltà italiane in Grecia e in Africa settentrionale?",
+        options: [
+          "La debolezza militare dell’Italia fascista e la sua dipendenza dall’aiuto tedesco.",
+          "La superiorità italiana assoluta sulle truppe britanniche.",
+          "La neutralità dell’Italia nel conflitto."
+        ],
+        answer: 0,
+        lesson: "Le sconfitte italiane in Grecia e in Africa settentrionale mostrarono che l’Italia non era preparata a sostenere una guerra moderna e prolungata. La Germania dovette intervenire per aiutare l’alleato."
+      },
+      {
+        q: "Perché l’Operazione Barbarossa fu una svolta decisiva ma rischiosa per la Germania?",
+        options: [
+          "Perché aprì un enorme fronte orientale contro l’URSS, difficile da sostenere nel tempo.",
+          "Perché chiuse definitivamente ogni combattimento in Europa.",
+          "Perché permise alla Germania di allearsi stabilmente con Stalin."
+        ],
+        answer: 0,
+        lesson: "Con l’Operazione Barbarossa la Germania invase l’URSS. All’inizio avanzò rapidamente, ma aprì un fronte enorme, durissimo e logorante. La resistenza sovietica e l’inverno bloccarono l’avanzata tedesca."
+      },
+      {
+        q: "Perché l’attacco a Pearl Harbor rese la guerra davvero mondiale?",
+        options: [
+          "Perché provocò l’ingresso diretto degli Stati Uniti nel conflitto.",
+          "Perché convinse la Germania ad arrendersi immediatamente.",
+          "Perché fece uscire il Giappone dalla guerra."
+        ],
+        answer: 0,
+        lesson: "Dopo l’attacco giapponese a Pearl Harbor, gli Stati Uniti entrarono in guerra contro il Giappone e poi contro Germania e Italia. Il conflitto assunse così una dimensione veramente mondiale."
+      },
+      {
+        q: "Quale elemento accomuna El Alamein e Stalingrado?",
+        options: [
+          "Entrambe segnarono l’arresto dell’avanzata delle potenze dell’Asse.",
+          "Entrambe furono vittorie decisive della Germania.",
+          "Entrambe si svolsero in Francia nel 1944."
+        ],
+        answer: 0,
+        lesson: "El Alamein fermò l’avanzata italo-tedesca in Africa settentrionale; Stalingrado segnò una durissima sconfitta tedesca sul fronte orientale. Insieme indicano la svolta a favore degli Alleati."
+      },
+      {
+        q: "Perché la Resistenza non fu solo un fatto militare?",
+        options: [
+          "Perché fu anche una scelta politica e civile contro occupazione nazista e fascismo.",
+          "Perché fu organizzata esclusivamente dai governi collaborazionisti.",
+          "Perché non ebbe alcun rapporto con la liberazione dell’Europa."
+        ],
+        answer: 0,
+        lesson: "La Resistenza fu fatta di sabotaggi, guerriglia e aiuto agli Alleati, ma fu anche una scelta politica e civile: opporsi all’occupazione nazista e ai regimi fascisti significava immaginare un’Europa diversa."
+      },
+      {
+        q: "Che cosa rese drammatica la situazione italiana dopo l’8 settembre 1943?",
+        options: [
+          "La divisione del Paese tra sud controllato dagli Alleati e nord occupato dai tedeschi con la Repubblica di Salò.",
+          "L’immediata liberazione di tutta l’Italia senza combattimenti.",
+          "La decisione dell’Italia di restare alleata compatta della Germania fino al 1945."
+        ],
+        answer: 0,
+        lesson: "Dopo l’armistizio l’Italia si spaccò: al sud il governo regio e gli Alleati, al nord l’occupazione tedesca e la Repubblica Sociale Italiana. Da qui nacque anche una guerra civile tra fascisti e partigiani."
+      },
+      {
+        q: "Quale ruolo ebbe il CLN nella Resistenza italiana?",
+        options: [
+          "Coordinò le diverse forze partigiane contro nazisti e fascisti repubblichini.",
+          "Guidò il governo collaborazionista francese.",
+          "Organizzò l’attacco giapponese a Pearl Harbor."
+        ],
+        answer: 0,
+        lesson: "Il Comitato di Liberazione Nazionale coordinava le forze politiche e partigiane impegnate nella lotta contro l’occupazione nazista e contro la Repubblica di Salò."
+      },
+      {
+        q: "Perché lo sbarco in Normandia fu decisivo?",
+        options: [
+          "Perché aprì un grande fronte occidentale e avviò la liberazione della Francia.",
+          "Perché permise alla Germania di conquistare la Gran Bretagna.",
+          "Perché segnò l’inizio dell’invasione tedesca della Polonia."
+        ],
+        answer: 0,
+        lesson: "Il D-Day del 6 giugno 1944 aprì il fronte occidentale in Europa. Da lì gli Alleati iniziarono la liberazione della Francia e avanzarono verso la Germania."
+      },
+      {
+        q: "Che cosa significa “resa senza condizioni” della Germania?",
+        options: [
+          "Accettazione totale della sconfitta senza trattare condizioni politiche o militari.",
+          "Accordo di pace in cui la Germania conservava tutti i territori conquistati.",
+          "Sospensione temporanea dei combattimenti solo in Italia."
+        ],
+        answer: 0,
+        lesson: "La resa senza condizioni significa che il Paese sconfitto accetta completamente la sconfitta, senza imporre condizioni. La Germania la firmò l’8 maggio 1945."
+      },
+      {
+        q: "Perché le bombe atomiche su Hiroshima e Nagasaki segnarono una frattura storica?",
+        options: [
+          "Perché mostrarono la potenza distruttiva dell’arma nucleare e aprirono l’era atomica.",
+          "Perché furono usate dalla Germania contro l’Unione Sovietica.",
+          "Perché permisero al Giappone di conquistare gli Stati Uniti."
+        ],
+        answer: 0,
+        lesson: "Le bombe atomiche del 6 e 9 agosto 1945 provocarono distruzioni enormi e accelerarono la resa giapponese. Ma soprattutto aprirono una nuova epoca: l’umanità possedeva ormai armi capaci di distruzione totale."
+      },
+      {
+        q: "Perché l’Olocausto viene definito crimine contro l’umanità?",
+        options: [
+          "Perché fu lo sterminio sistematico di milioni di ebrei e di altre minoranze perseguitate dal nazismo.",
+          "Perché fu una normale conseguenza militare di una battaglia.",
+          "Perché riguardò solo soldati caduti sul fronte orientale."
+        ],
+        answer: 0,
+        lesson: "L’Olocausto fu lo sterminio sistematico di circa sei milioni di ebrei, insieme ad altre minoranze e oppositori. Non fu un semplice episodio di guerra: fu un progetto di annientamento organizzato dallo Stato nazista."
+      },
+      {
+        q: "Quale fu lo scopo della nascita dell’ONU nel 1945?",
+        options: [
+          "Favorire la cooperazione internazionale e prevenire nuovi conflitti mondiali.",
+          "Sostituire tutti gli Stati nazionali con un unico governo europeo.",
+          "Organizzare la spartizione militare della Polonia."
+        ],
+        answer: 0,
+        lesson: "L’ONU nacque nel 1945 per cercare di garantire la pace, favorire la cooperazione internazionale e impedire il ripetersi di conflitti mondiali come quelli del Novecento."
+      },
+      {
+        q: "Perché dopo il 1945 si parla di nuovo ordine mondiale?",
+        options: [
+          "Perché il mondo si divise in due blocchi contrapposti, guidati da Stati Uniti e Unione Sovietica.",
+          "Perché tutte le potenze europee tornarono forti come prima della guerra.",
+          "Perché Germania, Italia e Giappone dominarono stabilmente il pianeta."
+        ],
+        answer: 0,
+        lesson: "Dopo la guerra l’Europa perse centralità e il mondo si organizzò attorno a due superpotenze: Stati Uniti e URSS. Da questa divisione nacque la Guerra fredda, una contrapposizione politica e ideologica."
+      }
+    ];
+
+    const quiz = document.getElementById("quiz");
+    const progressBar = document.getElementById("progressBar");
+    const answeredLabel = document.getElementById("answeredLabel");
+    const statusLabel = document.getElementById("statusLabel");
+    const submitBtn = document.getElementById("submitBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const printBtn = document.getElementById("printBtn");
+    const results = document.getElementById("results");
+    const resultMeta = document.getElementById("resultMeta");
+    const resultTitle = document.getElementById("resultTitle");
+    const judgement = document.getElementById("judgement");
+    const recovery = document.getElementById("recovery");
+    const scoreValue = document.getElementById("scoreValue");
+    const scoreCircle = document.getElementById("scoreCircle");
+
+    function letter(i) {
+      return ["A", "B", "C"][i];
+    }
+
+    function renderQuiz() {
+      quiz.innerHTML = "";
+
+      questions.forEach((item, qi) => {
+        const article = document.createElement("article");
+        article.className = "question";
+        article.id = `q${qi + 1}`;
+
+        article.innerHTML = `
+          <div class="qtop">
+            <div class="num">${qi + 1}</div>
+            <h2>${item.q}</h2>
+          </div>
+          <div class="options">
+            ${item.options.map((opt, oi) => `
+              <label class="option" data-q="${qi}" data-o="${oi}">
+                <input type="radio" name="q${qi}" value="${oi}" />
+                <span><strong>${letter(oi)}.</strong> ${opt}</span>
+              </label>
+            `).join("")}
+          </div>
+          <div class="mini-feedback" id="fb${qi}"></div>
+        `;
+
+        quiz.appendChild(article);
+      });
+
+      quiz.addEventListener("change", updateProgress);
+    }
+
+    function getAnswers() {
+      return questions.map((_, qi) => {
+        const checked = document.querySelector(`input[name="q${qi}"]:checked`);
+        return checked ? Number(checked.value) : null;
+      });
+    }
+
+    function updateProgress() {
+      const answers = getAnswers();
+      const answered = answers.filter(v => v !== null).length;
+      const pct = Math.round((answered / questions.length) * 100);
+
+      progressBar.style.width = pct + "%";
+      answeredLabel.textContent = `Risposte date: ${answered}/${questions.length}`;
+      statusLabel.textContent = answered === questions.length ? "Puoi concludere il test" : "Test in corso";
+    }
+
+    function judgementText(vote) {
+      if (vote >= 9) return "Ottimo: non solo ricordi, ma colleghi gli eventi.";
+      if (vote >= 8) return "Buono: quadro storico chiaro, con pochi nodi da rifinire.";
+      if (vote >= 6) return "Sufficiente: la struttura c’è, ma va consolidata.";
+      if (vote >= 5) return "Incerto: alcuni passaggi fondamentali vanno ripresi.";
+      return "Da recuperare: serve rimettere ordine tra cause, eventi e conseguenze.";
+    }
+
+    function submitQuiz() {
+      const answers = getAnswers();
+      const unanswered = answers
+        .map((v, i) => v === null ? i + 1 : null)
+        .filter(Boolean);
+
+      if (unanswered.length) {
+        alert("Devi rispondere a tutte le domande. Mancano: " + unanswered.join(", "));
+        document.getElementById(`q${unanswered[0]}`).scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      let correct = 0;
+      const wrong = [];
+
+      document.querySelectorAll(".option").forEach(el => el.classList.remove("correct", "wrong"));
+      document.querySelectorAll(".mini-feedback").forEach(el => {
+        el.style.display = "none";
+        el.innerHTML = "";
+      });
+
+      answers.forEach((ans, qi) => {
+        const right = questions[qi].answer;
+        document.querySelector(`.option[data-q="${qi}"][data-o="${right}"]`).classList.add("correct");
+
+        if (ans === right) {
+          correct++;
+        } else {
+          wrong.push(qi);
+          document.querySelector(`.option[data-q="${qi}"][data-o="${ans}"]`).classList.add("wrong");
+          const fb = document.getElementById(`fb${qi}`);
+          fb.style.display = "block";
+          fb.innerHTML = `<strong>Da riprendere:</strong> ${questions[qi].lesson}`;
+        }
+      });
+
+      const vote = Math.round((correct / questions.length) * 100) / 10;
+      const pct = Math.round((correct / questions.length) * 100);
+      const deg = Math.round((correct / questions.length) * 360);
+
+      scoreValue.textContent = vote.toFixed(1).replace(".", ",");
+      scoreCircle.style.setProperty("--deg", deg + "deg");
+      resultTitle.textContent = `Report finale: ${correct}/${questions.length} corrette`;
+      resultMeta.textContent = `Hai risposto correttamente al ${pct}% delle domande. Voto finale: ${vote.toFixed(1).replace(".", ",")}/10.`;
+      judgement.textContent = judgementText(vote);
+
+      recovery.innerHTML = "";
+
+      if (wrong.length === 0) {
+        recovery.innerHTML = `
+          <div class="recovery-item no-errors">
+            <h3>Nessuna mini-lezione necessaria</h3>
+            <p>Tutte le risposte sono corrette. Non è solo memoria: qui c’è ordine storico.</p>
+          </div>
+        `;
+      } else {
+        wrong.forEach(qi => {
+          const div = document.createElement("div");
+          div.className = "recovery-item";
+          div.innerHTML = `
+            <h3>Domanda ${qi + 1} · risposta corretta: ${letter(questions[qi].answer)}</h3>
+            <p>${questions[qi].lesson}</p>
+          `;
+          recovery.appendChild(div);
+        });
+      }
+
+      results.style.display = "block";
+      statusLabel.textContent = "Test concluso";
+      results.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll("input[type='radio']").forEach(input => input.checked = false);
+      document.querySelectorAll(".option").forEach(el => el.classList.remove("correct", "wrong"));
+      document.querySelectorAll(".mini-feedback").forEach(el => {
+        el.style.display = "none";
+        el.innerHTML = "";
+      });
+
+      results.style.display = "none";
+      scoreCircle.style.setProperty("--deg", "0deg");
+      scoreValue.textContent = "0";
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    submitBtn.addEventListener("click", submitQuiz);
+    resetBtn.addEventListener("click", resetQuiz);
+    printBtn.addEventListener("click", () => window.print());
+
+    renderQuiz();
+    updateProgress();
+  </script>
+</body>
+</html>
