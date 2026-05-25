@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seconda guerra mondiale - Test 2</title>
-  <meta name="description" content="Secondo test interattivo sulla Seconda guerra mondiale con 20 domande, correzione automatica, voto finale e mini-lezioni di recupero." />
+  <title>Seconda guerra mondiale - Test 2 randomizzato</title>
+  <meta name="description" content="Test interattivo randomizzato sulla Seconda guerra mondiale con 20 domande, correzione automatica, voto finale e mini-lezioni di recupero." />
   <style>
     :root {
       --bg: #0f172a;
@@ -427,17 +427,18 @@
   <header>
     <section class="hero">
       <div>
-        <div class="badge">☑ Test 2 · Seconda guerra mondiale · domande diverse</div>
+        <div class="badge">☑ Test 2 · domande e risposte randomizzate</div>
         <h1>Seconda guerra mondiale</h1>
         <p>
           Secondo test interattivo: 20 domande a scelta multipla, tre risposte per ogni domanda,
           voto finale in decimi e mini-lezioni di recupero solo sugli errori commessi.
+          A ogni avvio del test cambiano l’ordine delle domande e l’ordine delle risposte.
         </p>
       </div>
       <aside class="side-card">
-        <strong>Obiettivo</strong>
-        Verificare non solo la memoria degli eventi, ma anche la comprensione dei rapporti tra cause,
-        svolte militari, Resistenza, caduta dei regimi e conseguenze del conflitto.
+        <strong>Randomizzazione attiva</strong>
+        Ogni volta che si apre la pagina o si clicca su “Ricomincia”, il test viene mescolato.
+        La risposta corretta resta collegata alla domanda: non è un trucco, è solo igiene didattica.
       </aside>
     </section>
   </header>
@@ -477,222 +478,203 @@
   </main>
 
   <footer>
-    File unico HTML · pronto da copiare in GitHub Pages.
+    File unico HTML · pronto da copiare in GitHub Pages · domande e risposte randomizzate a ogni avvio.
   </footer>
 
   <script>
-    const questions = [
+    const questionBank = [
       {
         q: "Perché la politica di appeasement non riuscì a evitare la guerra?",
         options: [
-          "Perché le concessioni fatte a Hitler non fermarono la sua espansione, ma la incoraggiarono.",
-          "Perché Francia e Inghilterra attaccarono subito la Germania nel 1936.",
-          "Perché l’Unione Sovietica rifiutò ogni accordo con la Germania prima del 1939."
+          { text: "Perché le concessioni fatte a Hitler non fermarono la sua espansione, ma la incoraggiarono.", correct: true },
+          { text: "Perché Francia e Inghilterra attaccarono subito la Germania nel 1936.", correct: false },
+          { text: "Perché l’Unione Sovietica rifiutò ogni accordo con la Germania prima del 1939.", correct: false }
         ],
-        answer: 0,
         lesson: "L’appeasement fu il tentativo di evitare la guerra concedendo alcune richieste a Hitler, come nel caso dei Sudeti. Il problema è che queste concessioni non fermarono l’aggressività tedesca: la alimentarono, perché Hitler capì che le democrazie occidentali esitavano a intervenire."
       },
       {
         q: "Quale vantaggio ottenne Hitler dal Patto Molotov-Ribbentrop?",
         options: [
-          "Poté invadere la Polonia senza temere subito un attacco sovietico da est.",
-          "Ottenne l’aiuto militare della Francia contro la Gran Bretagna.",
-          "Costrinse il Giappone ad abbandonare l’Asse."
+          { text: "Poté invadere la Polonia senza temere subito un attacco sovietico da est.", correct: true },
+          { text: "Ottenne l’aiuto militare della Francia contro la Gran Bretagna.", correct: false },
+          { text: "Costrinse il Giappone ad abbandonare l’Asse.", correct: false }
         ],
-        answer: 0,
         lesson: "Il Patto Molotov-Ribbentrop garantì temporaneamente a Hitler la neutralità dell’URSS. Questo gli permise di attaccare la Polonia sapendo di non dover combattere subito contro i sovietici."
       },
       {
         q: "Perché l’invasione della Polonia trasformò la crisi europea in guerra aperta?",
         options: [
-          "Perché Francia e Inghilterra reagirono dichiarando guerra alla Germania.",
-          "Perché l’Italia invase immediatamente l’Unione Sovietica.",
-          "Perché il Giappone bombardò Pearl Harbor nello stesso giorno."
+          { text: "Perché Francia e Inghilterra reagirono dichiarando guerra alla Germania.", correct: true },
+          { text: "Perché l’Italia invase immediatamente l’Unione Sovietica.", correct: false },
+          { text: "Perché il Giappone bombardò Pearl Harbor nello stesso giorno.", correct: false }
         ],
-        answer: 0,
         lesson: "L’invasione della Polonia, il 1° settembre 1939, fu l’atto che fece saltare definitivamente l’equilibrio europeo. Il 3 settembre Francia e Inghilterra dichiararono guerra alla Germania."
       },
       {
         q: "Per quale motivo la Blitzkrieg fu così efficace nei primi anni di guerra?",
         options: [
-          "Perché combinava rapidità, coordinamento e sorpresa usando carri armati, aerei e fanteria.",
-          "Perché si basava solo sulla difesa delle trincee.",
-          "Perché evitava del tutto l’uso dell’aviazione."
+          { text: "Perché combinava rapidità, coordinamento e sorpresa usando carri armati, aerei e fanteria.", correct: true },
+          { text: "Perché si basava solo sulla difesa delle trincee.", correct: false },
+          { text: "Perché evitava del tutto l’uso dell’aviazione.", correct: false }
         ],
-        answer: 0,
         lesson: "La Blitzkrieg, o guerra lampo, funzionava perché colpiva rapidamente e in modo coordinato. Carri armati, aerei e fanteria agivano insieme per disorientare il nemico e impedirgli di organizzare una difesa efficace."
       },
       {
         q: "Che cosa dimostrò la sconfitta francese del 1940?",
         options: [
-          "Che la strategia difensiva tradizionale non bastava contro la guerra rapida tedesca.",
-          "Che la Germania era ormai stata sconfitta definitivamente.",
-          "Che la Linea Maginot aveva protetto tutta la Francia senza problemi."
+          { text: "Che la strategia difensiva tradizionale non bastava contro la guerra rapida tedesca.", correct: true },
+          { text: "Che la Germania era ormai stata sconfitta definitivamente.", correct: false },
+          { text: "Che la Linea Maginot aveva protetto tutta la Francia senza problemi.", correct: false }
         ],
-        answer: 0,
         lesson: "La Francia aveva puntato molto sulla Linea Maginot, ma i tedeschi aggirarono il sistema difensivo passando attraverso Belgio e Olanda. La sconfitta mostrò che la guerra moderna richiedeva rapidità e mobilità, non solo difese statiche."
       },
       {
         q: "Perché il governo di Vichy viene definito collaborazionista?",
         options: [
-          "Perché governò la Francia meridionale collaborando con la Germania nazista.",
-          "Perché guidò la Resistenza francese contro i tedeschi.",
-          "Perché dichiarò guerra alla Germania insieme all’URSS."
+          { text: "Perché governò la Francia meridionale collaborando con la Germania nazista.", correct: true },
+          { text: "Perché guidò la Resistenza francese contro i tedeschi.", correct: false },
+          { text: "Perché dichiarò guerra alla Germania insieme all’URSS.", correct: false }
         ],
-        answer: 0,
         lesson: "Dopo la sconfitta della Francia, il sud del Paese fu affidato al governo di Vichy, guidato da Pétain. Viene detto collaborazionista perché accettò di collaborare con la Germania nazista."
       },
       {
         q: "Perché la battaglia d’Inghilterra impedì a Hitler di dominare completamente l’Europa occidentale?",
         options: [
-          "Perché la RAF resistette ai bombardamenti e rese impossibile l’invasione della Gran Bretagna.",
-          "Perché l’Italia occupò Londra prima della Germania.",
-          "Perché l’URSS liberò Parigi nel 1940."
+          { text: "Perché la RAF resistette ai bombardamenti e rese impossibile l’invasione della Gran Bretagna.", correct: true },
+          { text: "Perché l’Italia occupò Londra prima della Germania.", correct: false },
+          { text: "Perché l’URSS liberò Parigi nel 1940.", correct: false }
         ],
-        answer: 0,
         lesson: "La Gran Bretagna resistette alla campagna aerea tedesca grazie alla RAF. Poiché Hitler non riuscì a ottenere il controllo dei cieli, l’invasione dell’isola non poté avvenire."
       },
       {
         q: "Perché l’ingresso dell’Italia in guerra fu una scelta opportunistica?",
         options: [
-          "Perché Mussolini entrò nel conflitto quando pensava che la vittoria tedesca fosse ormai vicina.",
-          "Perché l’Italia era stata attaccata direttamente dalla Francia nel 1939.",
-          "Perché l’Italia voleva difendere la Polonia dall’invasione tedesca."
+          { text: "Perché Mussolini entrò nel conflitto quando pensava che la vittoria tedesca fosse ormai vicina.", correct: true },
+          { text: "Perché l’Italia era stata attaccata direttamente dalla Francia nel 1939.", correct: false },
+          { text: "Perché l’Italia voleva difendere la Polonia dall’invasione tedesca.", correct: false }
         ],
-        answer: 0,
         lesson: "Mussolini dichiarò guerra il 10 giugno 1940 perché credeva che la Germania avesse già quasi vinto. Fu una scelta di convenienza politica, ma l’esercito italiano mostrò presto gravi debolezze."
       },
       {
         q: "Che cosa rivelarono le difficoltà italiane in Grecia e in Africa settentrionale?",
         options: [
-          "La debolezza militare dell’Italia fascista e la sua dipendenza dall’aiuto tedesco.",
-          "La superiorità italiana assoluta sulle truppe britanniche.",
-          "La neutralità dell’Italia nel conflitto."
+          { text: "La debolezza militare dell’Italia fascista e la sua dipendenza dall’aiuto tedesco.", correct: true },
+          { text: "La superiorità italiana assoluta sulle truppe britanniche.", correct: false },
+          { text: "La neutralità dell’Italia nel conflitto.", correct: false }
         ],
-        answer: 0,
         lesson: "Le sconfitte italiane in Grecia e in Africa settentrionale mostrarono che l’Italia non era preparata a sostenere una guerra moderna e prolungata. La Germania dovette intervenire per aiutare l’alleato."
       },
       {
         q: "Perché l’Operazione Barbarossa fu una svolta decisiva ma rischiosa per la Germania?",
         options: [
-          "Perché aprì un enorme fronte orientale contro l’URSS, difficile da sostenere nel tempo.",
-          "Perché chiuse definitivamente ogni combattimento in Europa.",
-          "Perché permise alla Germania di allearsi stabilmente con Stalin."
+          { text: "Perché aprì un enorme fronte orientale contro l’URSS, difficile da sostenere nel tempo.", correct: true },
+          { text: "Perché chiuse definitivamente ogni combattimento in Europa.", correct: false },
+          { text: "Perché permise alla Germania di allearsi stabilmente con Stalin.", correct: false }
         ],
-        answer: 0,
         lesson: "Con l’Operazione Barbarossa la Germania invase l’URSS. All’inizio avanzò rapidamente, ma aprì un fronte enorme, durissimo e logorante. La resistenza sovietica e l’inverno bloccarono l’avanzata tedesca."
       },
       {
         q: "Perché l’attacco a Pearl Harbor rese la guerra davvero mondiale?",
         options: [
-          "Perché provocò l’ingresso diretto degli Stati Uniti nel conflitto.",
-          "Perché convinse la Germania ad arrendersi immediatamente.",
-          "Perché fece uscire il Giappone dalla guerra."
+          { text: "Perché provocò l’ingresso diretto degli Stati Uniti nel conflitto.", correct: true },
+          { text: "Perché convinse la Germania ad arrendersi immediatamente.", correct: false },
+          { text: "Perché fece uscire il Giappone dalla guerra.", correct: false }
         ],
-        answer: 0,
         lesson: "Dopo l’attacco giapponese a Pearl Harbor, gli Stati Uniti entrarono in guerra contro il Giappone e poi contro Germania e Italia. Il conflitto assunse così una dimensione veramente mondiale."
       },
       {
         q: "Quale elemento accomuna El Alamein e Stalingrado?",
         options: [
-          "Entrambe segnarono l’arresto dell’avanzata delle potenze dell’Asse.",
-          "Entrambe furono vittorie decisive della Germania.",
-          "Entrambe si svolsero in Francia nel 1944."
+          { text: "Entrambe segnarono l’arresto dell’avanzata delle potenze dell’Asse.", correct: true },
+          { text: "Entrambe furono vittorie decisive della Germania.", correct: false },
+          { text: "Entrambe si svolsero in Francia nel 1944.", correct: false }
         ],
-        answer: 0,
         lesson: "El Alamein fermò l’avanzata italo-tedesca in Africa settentrionale; Stalingrado segnò una durissima sconfitta tedesca sul fronte orientale. Insieme indicano la svolta a favore degli Alleati."
       },
       {
         q: "Perché la Resistenza non fu solo un fatto militare?",
         options: [
-          "Perché fu anche una scelta politica e civile contro occupazione nazista e fascismo.",
-          "Perché fu organizzata esclusivamente dai governi collaborazionisti.",
-          "Perché non ebbe alcun rapporto con la liberazione dell’Europa."
+          { text: "Perché fu anche una scelta politica e civile contro occupazione nazista e fascismo.", correct: true },
+          { text: "Perché fu organizzata esclusivamente dai governi collaborazionisti.", correct: false },
+          { text: "Perché non ebbe alcun rapporto con la liberazione dell’Europa.", correct: false }
         ],
-        answer: 0,
         lesson: "La Resistenza fu fatta di sabotaggi, guerriglia e aiuto agli Alleati, ma fu anche una scelta politica e civile: opporsi all’occupazione nazista e ai regimi fascisti significava immaginare un’Europa diversa."
       },
       {
         q: "Che cosa rese drammatica la situazione italiana dopo l’8 settembre 1943?",
         options: [
-          "La divisione del Paese tra sud controllato dagli Alleati e nord occupato dai tedeschi con la Repubblica di Salò.",
-          "L’immediata liberazione di tutta l’Italia senza combattimenti.",
-          "La decisione dell’Italia di restare alleata compatta della Germania fino al 1945."
+          { text: "La divisione del Paese tra sud controllato dagli Alleati e nord occupato dai tedeschi con la Repubblica di Salò.", correct: true },
+          { text: "L’immediata liberazione di tutta l’Italia senza combattimenti.", correct: false },
+          { text: "La decisione dell’Italia di restare alleata compatta della Germania fino al 1945.", correct: false }
         ],
-        answer: 0,
         lesson: "Dopo l’armistizio l’Italia si spaccò: al sud il governo regio e gli Alleati, al nord l’occupazione tedesca e la Repubblica Sociale Italiana. Da qui nacque anche una guerra civile tra fascisti e partigiani."
       },
       {
         q: "Quale ruolo ebbe il CLN nella Resistenza italiana?",
         options: [
-          "Coordinò le diverse forze partigiane contro nazisti e fascisti repubblichini.",
-          "Guidò il governo collaborazionista francese.",
-          "Organizzò l’attacco giapponese a Pearl Harbor."
+          { text: "Coordinò le diverse forze partigiane contro nazisti e fascisti repubblichini.", correct: true },
+          { text: "Guidò il governo collaborazionista francese.", correct: false },
+          { text: "Organizzò l’attacco giapponese a Pearl Harbor.", correct: false }
         ],
-        answer: 0,
         lesson: "Il Comitato di Liberazione Nazionale coordinava le forze politiche e partigiane impegnate nella lotta contro l’occupazione nazista e contro la Repubblica di Salò."
       },
       {
         q: "Perché lo sbarco in Normandia fu decisivo?",
         options: [
-          "Perché aprì un grande fronte occidentale e avviò la liberazione della Francia.",
-          "Perché permise alla Germania di conquistare la Gran Bretagna.",
-          "Perché segnò l’inizio dell’invasione tedesca della Polonia."
+          { text: "Perché aprì un grande fronte occidentale e avviò la liberazione della Francia.", correct: true },
+          { text: "Perché permise alla Germania di conquistare la Gran Bretagna.", correct: false },
+          { text: "Perché segnò l’inizio dell’invasione tedesca della Polonia.", correct: false }
         ],
-        answer: 0,
         lesson: "Il D-Day del 6 giugno 1944 aprì il fronte occidentale in Europa. Da lì gli Alleati iniziarono la liberazione della Francia e avanzarono verso la Germania."
       },
       {
         q: "Che cosa significa “resa senza condizioni” della Germania?",
         options: [
-          "Accettazione totale della sconfitta senza trattare condizioni politiche o militari.",
-          "Accordo di pace in cui la Germania conservava tutti i territori conquistati.",
-          "Sospensione temporanea dei combattimenti solo in Italia."
+          { text: "Accettazione totale della sconfitta senza trattare condizioni politiche o militari.", correct: true },
+          { text: "Accordo di pace in cui la Germania conservava tutti i territori conquistati.", correct: false },
+          { text: "Sospensione temporanea dei combattimenti solo in Italia.", correct: false }
         ],
-        answer: 0,
         lesson: "La resa senza condizioni significa che il Paese sconfitto accetta completamente la sconfitta, senza imporre condizioni. La Germania la firmò l’8 maggio 1945."
       },
       {
         q: "Perché le bombe atomiche su Hiroshima e Nagasaki segnarono una frattura storica?",
         options: [
-          "Perché mostrarono la potenza distruttiva dell’arma nucleare e aprirono l’era atomica.",
-          "Perché furono usate dalla Germania contro l’Unione Sovietica.",
-          "Perché permisero al Giappone di conquistare gli Stati Uniti."
+          { text: "Perché mostrarono la potenza distruttiva dell’arma nucleare e aprirono l’era atomica.", correct: true },
+          { text: "Perché furono usate dalla Germania contro l’Unione Sovietica.", correct: false },
+          { text: "Perché permisero al Giappone di conquistare gli Stati Uniti.", correct: false }
         ],
-        answer: 0,
         lesson: "Le bombe atomiche del 6 e 9 agosto 1945 provocarono distruzioni enormi e accelerarono la resa giapponese. Ma soprattutto aprirono una nuova epoca: l’umanità possedeva ormai armi capaci di distruzione totale."
       },
       {
         q: "Perché l’Olocausto viene definito crimine contro l’umanità?",
         options: [
-          "Perché fu lo sterminio sistematico di milioni di ebrei e di altre minoranze perseguitate dal nazismo.",
-          "Perché fu una normale conseguenza militare di una battaglia.",
-          "Perché riguardò solo soldati caduti sul fronte orientale."
+          { text: "Perché fu lo sterminio sistematico di milioni di ebrei e di altre minoranze perseguitate dal nazismo.", correct: true },
+          { text: "Perché fu una normale conseguenza militare di una battaglia.", correct: false },
+          { text: "Perché riguardò solo soldati caduti sul fronte orientale.", correct: false }
         ],
-        answer: 0,
         lesson: "L’Olocausto fu lo sterminio sistematico di circa sei milioni di ebrei, insieme ad altre minoranze e oppositori. Non fu un semplice episodio di guerra: fu un progetto di annientamento organizzato dallo Stato nazista."
       },
       {
         q: "Quale fu lo scopo della nascita dell’ONU nel 1945?",
         options: [
-          "Favorire la cooperazione internazionale e prevenire nuovi conflitti mondiali.",
-          "Sostituire tutti gli Stati nazionali con un unico governo europeo.",
-          "Organizzare la spartizione militare della Polonia."
+          { text: "Favorire la cooperazione internazionale e prevenire nuovi conflitti mondiali.", correct: true },
+          { text: "Sostituire tutti gli Stati nazionali con un unico governo europeo.", correct: false },
+          { text: "Organizzare la spartizione militare della Polonia.", correct: false }
         ],
-        answer: 0,
         lesson: "L’ONU nacque nel 1945 per cercare di garantire la pace, favorire la cooperazione internazionale e impedire il ripetersi di conflitti mondiali come quelli del Novecento."
       },
       {
         q: "Perché dopo il 1945 si parla di nuovo ordine mondiale?",
         options: [
-          "Perché il mondo si divise in due blocchi contrapposti, guidati da Stati Uniti e Unione Sovietica.",
-          "Perché tutte le potenze europee tornarono forti come prima della guerra.",
-          "Perché Germania, Italia e Giappone dominarono stabilmente il pianeta."
+          { text: "Perché il mondo si divise in due blocchi contrapposti, guidati da Stati Uniti e Unione Sovietica.", correct: true },
+          { text: "Perché tutte le potenze europee tornarono forti come prima della guerra.", correct: false },
+          { text: "Perché Germania, Italia e Giappone dominarono stabilmente il pianeta.", correct: false }
         ],
-        answer: 0,
         lesson: "Dopo la guerra l’Europa perse centralità e il mondo si organizzò attorno a due superpotenze: Stati Uniti e URSS. Da questa divisione nacque la Guerra fredda, una contrapposizione politica e ideologica."
       }
     ];
+
+    let currentQuestions = [];
 
     const quiz = document.getElementById("quiz");
     const progressBar = document.getElementById("progressBar");
@@ -709,6 +691,25 @@
     const scoreValue = document.getElementById("scoreValue");
     const scoreCircle = document.getElementById("scoreCircle");
 
+    function shuffleArray(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function prepareRandomizedQuestions() {
+      currentQuestions = shuffleArray(questionBank).map(question => {
+        return {
+          q: question.q,
+          lesson: question.lesson,
+          options: shuffleArray(question.options).map(option => ({ ...option }))
+        };
+      });
+    }
+
     function letter(i) {
       return ["A", "B", "C"][i];
     }
@@ -716,7 +717,7 @@
     function renderQuiz() {
       quiz.innerHTML = "";
 
-      questions.forEach((item, qi) => {
+      currentQuestions.forEach((item, qi) => {
         const article = document.createElement("article");
         article.className = "question";
         article.id = `q${qi + 1}`;
@@ -730,7 +731,7 @@
             ${item.options.map((opt, oi) => `
               <label class="option" data-q="${qi}" data-o="${oi}">
                 <input type="radio" name="q${qi}" value="${oi}" />
-                <span><strong>${letter(oi)}.</strong> ${opt}</span>
+                <span><strong>${letter(oi)}.</strong> ${opt.text}</span>
               </label>
             `).join("")}
           </div>
@@ -739,12 +740,10 @@
 
         quiz.appendChild(article);
       });
-
-      quiz.addEventListener("change", updateProgress);
     }
 
     function getAnswers() {
-      return questions.map((_, qi) => {
+      return currentQuestions.map((_, qi) => {
         const checked = document.querySelector(`input[name="q${qi}"]:checked`);
         return checked ? Number(checked.value) : null;
       });
@@ -753,11 +752,11 @@
     function updateProgress() {
       const answers = getAnswers();
       const answered = answers.filter(v => v !== null).length;
-      const pct = Math.round((answered / questions.length) * 100);
+      const pct = Math.round((answered / currentQuestions.length) * 100);
 
       progressBar.style.width = pct + "%";
-      answeredLabel.textContent = `Risposte date: ${answered}/${questions.length}`;
-      statusLabel.textContent = answered === questions.length ? "Puoi concludere il test" : "Test in corso";
+      answeredLabel.textContent = `Risposte date: ${answered}/${currentQuestions.length}`;
+      statusLabel.textContent = answered === currentQuestions.length ? "Puoi concludere il test" : "Test in corso";
     }
 
     function judgementText(vote) {
@@ -790,27 +789,29 @@
       });
 
       answers.forEach((ans, qi) => {
-        const right = questions[qi].answer;
-        document.querySelector(`.option[data-q="${qi}"][data-o="${right}"]`).classList.add("correct");
+        const selectedOption = currentQuestions[qi].options[ans];
+        const rightIndex = currentQuestions[qi].options.findIndex(option => option.correct);
 
-        if (ans === right) {
+        document.querySelector(`.option[data-q="${qi}"][data-o="${rightIndex}"]`).classList.add("correct");
+
+        if (selectedOption.correct) {
           correct++;
         } else {
           wrong.push(qi);
           document.querySelector(`.option[data-q="${qi}"][data-o="${ans}"]`).classList.add("wrong");
           const fb = document.getElementById(`fb${qi}`);
           fb.style.display = "block";
-          fb.innerHTML = `<strong>Da riprendere:</strong> ${questions[qi].lesson}`;
+          fb.innerHTML = `<strong>Da riprendere:</strong> ${currentQuestions[qi].lesson}`;
         }
       });
 
-      const vote = Math.round((correct / questions.length) * 100) / 10;
-      const pct = Math.round((correct / questions.length) * 100);
-      const deg = Math.round((correct / questions.length) * 360);
+      const vote = Math.round((correct / currentQuestions.length) * 100) / 10;
+      const pct = Math.round((correct / currentQuestions.length) * 100);
+      const deg = Math.round((correct / currentQuestions.length) * 360);
 
       scoreValue.textContent = vote.toFixed(1).replace(".", ",");
       scoreCircle.style.setProperty("--deg", deg + "deg");
-      resultTitle.textContent = `Report finale: ${correct}/${questions.length} corrette`;
+      resultTitle.textContent = `Report finale: ${correct}/${currentQuestions.length} corrette`;
       resultMeta.textContent = `Hai risposto correttamente al ${pct}% delle domande. Voto finale: ${vote.toFixed(1).replace(".", ",")}/10.`;
       judgement.textContent = judgementText(vote);
 
@@ -825,11 +826,12 @@
         `;
       } else {
         wrong.forEach(qi => {
+          const rightIndex = currentQuestions[qi].options.findIndex(option => option.correct);
           const div = document.createElement("div");
           div.className = "recovery-item";
           div.innerHTML = `
-            <h3>Domanda ${qi + 1} · risposta corretta: ${letter(questions[qi].answer)}</h3>
-            <p>${questions[qi].lesson}</p>
+            <h3>Domanda ${qi + 1} · risposta corretta: ${letter(rightIndex)}</h3>
+            <p>${currentQuestions[qi].lesson}</p>
           `;
           recovery.appendChild(div);
         });
@@ -840,14 +842,9 @@
       results.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
-    function resetQuiz() {
-      document.querySelectorAll("input[type='radio']").forEach(input => input.checked = false);
-      document.querySelectorAll(".option").forEach(el => el.classList.remove("correct", "wrong"));
-      document.querySelectorAll(".mini-feedback").forEach(el => {
-        el.style.display = "none";
-        el.innerHTML = "";
-      });
-
+    function startNewTest() {
+      prepareRandomizedQuestions();
+      renderQuiz();
       results.style.display = "none";
       scoreCircle.style.setProperty("--deg", "0deg");
       scoreValue.textContent = "0";
@@ -855,12 +852,12 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
+    quiz.addEventListener("change", updateProgress);
     submitBtn.addEventListener("click", submitQuiz);
-    resetBtn.addEventListener("click", resetQuiz);
+    resetBtn.addEventListener("click", startNewTest);
     printBtn.addEventListener("click", () => window.print());
 
-    renderQuiz();
-    updateProgress();
+    startNewTest();
   </script>
 </body>
 </html>
