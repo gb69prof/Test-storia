@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seconda guerra mondiale - Test 3 randomizzato</title>
+  <meta name="description" content="Terzo test interattivo randomizzato sulla Seconda guerra mondiale con 20 domande, correzione automatica, voto finale e mini-lezioni di recupero." />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: rgba(255, 255, 255, 0.96);
+      --text: #111827;
+      --muted: #64748b;
+      --accent: #7f1d1d;
+      --accent2: #d97706;
+      --ok: #047857;
+      --bad: #b91c1c;
+      --line: #e5e7eb;
+      --shadow: 0 22px 60px rgba(0,0,0,.30);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 12%, rgba(217,119,6,.25), transparent 34%),
+        radial-gradient(circle at 88% 8%, rgba(127,29,29,.30), transparent 36%),
+        linear-gradient(135deg, #020617 0%, #111827 50%, #1e293b 100%);
+    }
+
+    header {
+      max-width: 1120px;
+      margin: auto;
+      padding: 48px 20px 32px;
+      color: white;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr minmax(230px, 310px);
+      gap: 24px;
+      align-items: end;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(8px);
+      font-size: .92rem;
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      font-size: clamp(2rem, 5vw, 4.2rem);
+      line-height: .98;
+      letter-spacing: -0.045em;
+    }
+
+    header p {
+      max-width: 820px;
+      margin: 0;
+      color: rgba(255,255,255,.84);
+      line-height: 1.65;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+    }
+
+    .side-card {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(10px);
+      color: rgba(255,255,255,.88);
+      line-height: 1.5;
+    }
+
+    .side-card strong {
+      display: block;
+      color: white;
+      font-size: 1.16rem;
+      margin-bottom: 6px;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto 56px;
+      padding: 0 20px;
+    }
+
+    .panel {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.5);
+      box-shadow: var(--shadow);
+      overflow: clip;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 16px 18px;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+      font-size: .92rem;
+      color: var(--muted);
+    }
+
+    .progress {
+      height: 10px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress > div {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .25s ease;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: .95rem;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(0,0,0,.14);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .primary {
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #450a0a);
+    }
+
+    .secondary {
+      color: #111827;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+    }
+
+    .quiz {
+      display: grid;
+      gap: 16px;
+      padding: 16px;
+    }
+
+    .question {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .qtop {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .num {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: white;
+      font-weight: 950;
+      background: linear-gradient(135deg, var(--accent), #450a0a);
+    }
+
+    .question h2 {
+      margin: 4px 0 0;
+      font-size: 1.05rem;
+      line-height: 1.42;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    label.option {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 13px 14px;
+      border: 1px solid #e5e7eb;
+      border-radius: 15px;
+      background: #fafafa;
+      cursor: pointer;
+      line-height: 1.45;
+      transition: border .15s ease, background .15s ease, transform .15s ease;
+    }
+
+    label.option:hover {
+      border-color: var(--accent2);
+      background: #fffbeb;
+      transform: translateX(2px);
+    }
+
+    input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--accent);
+    }
+
+    .option.correct {
+      border-color: rgba(4,120,87,.65);
+      background: rgba(4,120,87,.08);
+    }
+
+    .option.wrong {
+      border-color: rgba(185,28,28,.65);
+      background: rgba(185,28,28,.08);
+    }
+
+    .mini-feedback {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #f9fafb;
+      border: 1px dashed #d1d5db;
+      color: #374151;
+      line-height: 1.55;
+    }
+
+    .mini-feedback strong {
+      color: var(--bad);
+    }
+
+    .results {
+      display: none;
+      padding: 22px;
+      border-top: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff, #f8fafc);
+    }
+
+    .score-card {
+      display: grid;
+      grid-template-columns: minmax(150px, 220px) 1fr;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .score-circle {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      margin: auto;
+      background:
+        radial-gradient(circle at center, white 57%, transparent 58%),
+        conic-gradient(var(--accent) var(--deg, 0deg), #e5e7eb 0deg);
+      box-shadow: inset 0 0 0 1px #e5e7eb, 0 12px 30px rgba(0,0,0,.12);
+    }
+
+    .score-circle span {
+      font-size: 2.3rem;
+      font-weight: 950;
+    }
+
+    .result-title {
+      margin: 0 0 8px;
+      font-size: clamp(1.4rem, 3vw, 2.1rem);
+    }
+
+    .result-meta {
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .judgement {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 850;
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .recovery {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .recovery-item {
+      padding: 14px 15px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--accent);
+      background: white;
+      line-height: 1.55;
+    }
+
+    .recovery-item h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .no-errors {
+      border-left-color: var(--ok);
+      background: rgba(4,120,87,.06);
+    }
+
+    footer {
+      padding: 24px 12px 40px;
+      color: rgba(255,255,255,.62);
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 820px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      header {
+        padding-top: 34px;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        justify-content: stretch;
+      }
+
+      .actions button {
+        flex: 1 1 150px;
+      }
+
+      .score-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      header, .toolbar, footer {
+        display: none;
+      }
+
+      main {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .panel {
+        box-shadow: none;
+        border: 0;
+      }
+
+      .results {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <section class="hero">
+      <div>
+        <div class="badge">☑ Test 3 · domande e risposte randomizzate</div>
+        <h1>Seconda guerra mondiale</h1>
+        <p>
+          Terzo test interattivo: 20 domande nuove, tre risposte per ogni domanda,
+          voto finale in decimi e mini-lezioni di recupero. A ogni avvio cambiano sia
+          l’ordine delle domande sia l’ordine delle risposte.
+        </p>
+      </div>
+      <aside class="side-card">
+        <strong>Taglio del test</strong>
+        Questa prova insiste su cronologia, lessico storico, snodi italiani del 1943-45,
+        conseguenze politiche e capacità di distinguere eventi simili. Qui la memoria da sola traballa.
+      </aside>
+    </section>
+  </header>
+
+  <main>
+    <section class="panel">
+      <div class="toolbar">
+        <div>
+          <div class="progress-label">
+            <span id="answeredLabel">Risposte date: 0/20</span>
+            <span id="statusLabel">Test non concluso</span>
+          </div>
+          <div class="progress" aria-hidden="true"><div id="progressBar"></div></div>
+        </div>
+        <div class="actions">
+          <button class="secondary" id="resetBtn" type="button">Ricomincia</button>
+          <button class="secondary" id="printBtn" type="button">Stampa report</button>
+          <button class="primary" id="submitBtn" type="button">Concludi test</button>
+        </div>
+      </div>
+
+      <form id="quiz" class="quiz"></form>
+
+      <section id="results" class="results" aria-live="polite">
+        <div class="score-card">
+          <div class="score-circle" id="scoreCircle"><span id="scoreValue">0</span></div>
+          <div>
+            <h2 class="result-title" id="resultTitle">Report finale</h2>
+            <p class="result-meta" id="resultMeta"></p>
+            <span class="judgement" id="judgement"></span>
+          </div>
+        </div>
+        <h2>Mini-lezioni di recupero</h2>
+        <div class="recovery" id="recovery"></div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    File unico HTML · pronto da copiare in GitHub Pages · randomizzazione attiva.
+  </footer>
+
+  <script>
+    const questionBank = [
+      {
+        q: "Quale sequenza mette correttamente in ordine alcuni passaggi della politica aggressiva di Hitler prima della guerra?",
+        options: [
+          { text: "Rimilitarizzazione della Renania, Anschluss, Sudeti, invasione della Cecoslovacchia.", correct: true },
+          { text: "Pearl Harbor, Anschluss, D-Day, invasione della Polonia.", correct: false },
+          { text: "D-Day, Patto d’Acciaio, Hiroshima, Conferenza di Monaco.", correct: false }
+        ],
+        lesson: "Prima dello scoppio della guerra Hitler procede per passi successivi: nel 1936 rimilitarizza la Renania; nel 1938 annette l’Austria e ottiene i Sudeti; nel 1939 invade la Cecoslovacchia. È una crescita progressiva dell’aggressività nazista."
+      },
+      {
+        q: "Perché l’occupazione italiana dell’Albania nel 1939 è importante nel quadro europeo?",
+        options: [
+          { text: "Mostra che anche l’Italia fascista partecipa alla politica espansionistica accanto alla Germania.", correct: true },
+          { text: "Segna l’uscita dell’Italia dall’alleanza con la Germania.", correct: false },
+          { text: "Provoca immediatamente la resa della Francia.", correct: false }
+        ],
+        lesson: "L’occupazione dell’Albania mostra che anche l’Italia fascista cerca espansione e prestigio imperiale. Non è un evento isolato: si inserisce nel clima aggressivo che precede la guerra."
+      },
+      {
+        q: "Che cosa differenzia il Patto d’Acciaio dal Patto Molotov-Ribbentrop?",
+        options: [
+          { text: "Il primo è un’alleanza militare tra Italia e Germania; il secondo è un patto di non aggressione tra Germania e URSS.", correct: true },
+          { text: "Il primo conclude la guerra; il secondo fonda l’ONU.", correct: false },
+          { text: "Il primo riguarda il Giappone; il secondo riguarda solo la Francia.", correct: false }
+        ],
+        lesson: "Il Patto d’Acciaio lega militarmente Italia fascista e Germania nazista. Il Patto Molotov-Ribbentrop, invece, è un accordo di non aggressione tra Germania e URSS, utile a Hitler per preparare l’attacco alla Polonia."
+      },
+      {
+        q: "Perché Danzica e il corridoio polacco furono usati da Hitler come pretesto?",
+        options: [
+          { text: "Per giustificare l’attacco alla Polonia e aprire il conflitto.", correct: true },
+          { text: "Per chiedere alla Polonia di allearsi con l’URSS contro la Germania.", correct: false },
+          { text: "Per fermare la guerra nel Pacifico.", correct: false }
+        ],
+        lesson: "Hitler chiese la cessione di Danzica e del corridoio polacco. Il rifiuto polacco fu usato come pretesto per l’invasione del 1° settembre 1939, evento che aprì la guerra."
+      },
+      {
+        q: "Quale aspetto rende la guerra lampo diversa dalla guerra di trincea della Prima guerra mondiale?",
+        options: [
+          { text: "La guerra lampo punta su movimento rapido, mezzi corazzati e aviazione, non su lunghi fronti immobili.", correct: true },
+          { text: "La guerra lampo elimina ogni uso di tecnologia militare.", correct: false },
+          { text: "La guerra lampo consiste nel restare fermi per anni nella stessa posizione.", correct: false }
+        ],
+        lesson: "La guerra lampo si basa su velocità e coordinamento: aerei, carri armati e fanteria agiscono insieme. È l’opposto della guerra di trincea, lenta e bloccata, tipica della Prima guerra mondiale."
+      },
+      {
+        q: "Perché l’invasione di Danimarca e Norvegia nel 1940 aveva valore strategico?",
+        options: [
+          { text: "Permise alla Germania di controllare rotte marittime e materie prime del Nord Europa.", correct: true },
+          { text: "Servì a conquistare direttamente il Nord Africa.", correct: false },
+          { text: "Fu necessaria per invadere il Giappone.", correct: false }
+        ],
+        lesson: "La Germania occupò Danimarca e Norvegia per assicurarsi posizioni strategiche nel Nord Europa, controllare rotte marittime e garantire l’accesso a risorse utili alla guerra."
+      },
+      {
+        q: "Che cosa significa che la Francia fu divisa dopo la sconfitta del 1940?",
+        options: [
+          { text: "Il nord fu occupato dai tedeschi, mentre al sud nacque il governo collaborazionista di Vichy.", correct: true },
+          { text: "La Francia fu divisa tra Italia e Giappone.", correct: false },
+          { text: "Il nord passò agli Stati Uniti e il sud all’URSS.", correct: false }
+        ],
+        lesson: "Dopo la sconfitta, la Francia non rimase unita e libera: il nord fu occupato dalla Germania, mentre nel sud si formò il governo di Vichy, guidato da Pétain e collaborazionista con i nazisti."
+      },
+      {
+        q: "Perché la RAF ebbe un ruolo fondamentale nel 1940?",
+        options: [
+          { text: "Difese la Gran Bretagna dagli attacchi aerei tedeschi durante la battaglia d’Inghilterra.", correct: true },
+          { text: "Guidò l’invasione tedesca dell’URSS.", correct: false },
+          { text: "Comandò l’esercito italiano in Grecia.", correct: false }
+        ],
+        lesson: "La RAF, l’aviazione britannica, resistette alla campagna di bombardamenti tedesca. Senza quella resistenza, Hitler avrebbe potuto tentare l’invasione della Gran Bretagna."
+      },
+      {
+        q: "Quale conseguenza ebbe il fallimento italiano in Grecia?",
+        options: [
+          { text: "La Germania intervenne nei Balcani per sostenere l’alleato italiano.", correct: true },
+          { text: "L’Italia conquistò immediatamente Mosca.", correct: false },
+          { text: "La Gran Bretagna firmò la resa senza condizioni.", correct: false }
+        ],
+        lesson: "L’attacco italiano alla Grecia si rivelò un fallimento. La Germania dovette intervenire nella primavera del 1941, invadendo Jugoslavia e Grecia per sistemare il fronte balcanico."
+      },
+      {
+        q: "Chi era Erwin Rommel nel contesto della guerra in Africa settentrionale?",
+        options: [
+          { text: "Il generale tedesco soprannominato Volpe del deserto.", correct: true },
+          { text: "Il capo del governo collaborazionista di Vichy.", correct: false },
+          { text: "Il presidente americano che decise l’uso della bomba atomica.", correct: false }
+        ],
+        lesson: "Erwin Rommel fu il generale tedesco inviato in Africa settentrionale per sostenere le truppe italiane. Il suo soprannome era Volpe del deserto."
+      },
+      {
+        q: "Perché l’inverno sovietico è ricordato come un fattore importante nell’Operazione Barbarossa?",
+        options: [
+          { text: "Contribuì a bloccare l’avanzata tedesca insieme alla resistenza sovietica.", correct: true },
+          { text: "Permise alla Germania di conquistare rapidamente l’intera URSS.", correct: false },
+          { text: "Fu la causa dello sbarco in Normandia.", correct: false }
+        ],
+        lesson: "La Germania avanzò rapidamente all’inizio dell’invasione dell’URSS, ma la resistenza sovietica e il rigido inverno fermarono l’offensiva davanti a Mosca e Leningrado."
+      },
+      {
+        q: "Quale rapporto c’è tra Pearl Harbor e l’ingresso degli Stati Uniti in guerra?",
+        options: [
+          { text: "L’attacco giapponese spinse gli Stati Uniti a entrare direttamente nel conflitto.", correct: true },
+          { text: "Pearl Harbor convinse gli Stati Uniti a restare neutrali.", correct: false },
+          { text: "Pearl Harbor fu una base tedesca conquistata dall’Italia.", correct: false }
+        ],
+        lesson: "Il 7 dicembre 1941 il Giappone attaccò Pearl Harbor. Il giorno dopo gli Stati Uniti dichiararono guerra al Giappone e poi entrarono nel conflitto contro le potenze dell’Asse."
+      },
+      {
+        q: "Perché il 1942 è considerato l’anno della svolta?",
+        options: [
+          { text: "Perché l’avanzata dell’Asse iniziò a essere fermata a El Alamein e Stalingrado.", correct: true },
+          { text: "Perché la Germania conquistò definitivamente tutto il mondo.", correct: false },
+          { text: "Perché l’Italia firmò già la pace con gli Alleati.", correct: false }
+        ],
+        lesson: "Nel 1942 l’Asse sembra ancora forte, ma comincia la svolta: gli inglesi fermano Rommel a El Alamein e i sovietici resistono a Stalingrado, preparando la grande sconfitta tedesca."
+      },
+      {
+        q: "Che cosa distingue la Resistenza europea da un esercito regolare tradizionale?",
+        options: [
+          { text: "Era spesso clandestina e usava sabotaggi, guerriglia e raccolta di informazioni.", correct: true },
+          { text: "Combatteva sempre in campo aperto con grandi eserciti statali.", correct: false },
+          { text: "Era composta solo da truppe tedesche ufficiali.", correct: false }
+        ],
+        lesson: "La Resistenza agiva spesso clandestinamente: sabotaggi, guerriglia, informazioni agli Alleati. Non era un esercito regolare unico, ma una rete di movimenti civili e militari contro l’occupazione nazista."
+      },
+      {
+        q: "Che cosa accadde il 25 luglio 1943 in Italia?",
+        options: [
+          { text: "Mussolini fu destituito e arrestato, e il re affidò il governo a Badoglio.", correct: true },
+          { text: "La Germania firmò la resa senza condizioni.", correct: false },
+          { text: "Gli Stati Uniti bombardarono Hiroshima.", correct: false }
+        ],
+        lesson: "Dopo lo sbarco alleato in Sicilia e il disastro militare, il 25 luglio 1943 Mussolini fu destituito e arrestato. Il governo passò al maresciallo Badoglio."
+      },
+      {
+        q: "Perché l’8 settembre 1943 è una data decisiva per l’Italia?",
+        options: [
+          { text: "Fu annunciato l’armistizio con gli Alleati e il Paese si divise in due.", correct: true },
+          { text: "Fu fondata l’ONU a New York.", correct: false },
+          { text: "Hitler invase la Polonia.", correct: false }
+        ],
+        lesson: "L’8 settembre 1943 fu annunciato l’armistizio. Da quel momento l’Italia si divise: sud sotto controllo alleato e governo regio; nord occupato dai tedeschi con la Repubblica Sociale Italiana."
+      },
+      {
+        q: "Che cosa indica l’espressione Repubblica di Salò?",
+        options: [
+          { text: "Lo Stato fascista fondato da Mussolini nel nord Italia sotto controllo tedesco.", correct: true },
+          { text: "Il governo democratico nato dopo la Liberazione del 25 aprile.", correct: false },
+          { text: "Il comando alleato dello sbarco in Normandia.", correct: false }
+        ],
+        lesson: "La Repubblica Sociale Italiana, detta Repubblica di Salò, fu fondata da Mussolini nel nord Italia dopo la sua liberazione da parte dei tedeschi. Era uno Stato fascista dipendente dalla Germania nazista."
+      },
+      {
+        q: "Quale evento segnò la liberazione del nord Italia nel 1945?",
+        options: [
+          { text: "L’insurrezione partigiana del 25 aprile 1945.", correct: true },
+          { text: "La Conferenza di Monaco del 1938.", correct: false },
+          { text: "L’attacco a Pearl Harbor del 1941.", correct: false }
+        ],
+        lesson: "Il 25 aprile 1945 l’insurrezione partigiana portò alla liberazione del nord Italia. Per questo la data è diventata il simbolo della Liberazione."
+      },
+      {
+        q: "Quale coppia di eventi è correttamente collegata alla fine della guerra in Europa?",
+        options: [
+          { text: "Suicidio di Hitler e resa senza condizioni della Germania l’8 maggio 1945.", correct: true },
+          { text: "Attacco a Pearl Harbor e Conferenza di Monaco.", correct: false },
+          { text: "Anschluss e bombardamento di Nagasaki.", correct: false }
+        ],
+        lesson: "Alla fine della guerra in Europa, Hitler si suicidò il 30 aprile 1945 e la Germania firmò la resa senza condizioni l’8 maggio 1945. La guerra mondiale però continuò ancora nel Pacifico."
+      },
+      {
+        q: "Perché la Seconda guerra mondiale non finì l’8 maggio 1945?",
+        options: [
+          { text: "Perché il Giappone continuava a combattere nel Pacifico fino alla resa del 2 settembre 1945.", correct: true },
+          { text: "Perché la Germania invase la Francia nel 1946.", correct: false },
+          { text: "Perché l’Italia non era ancora entrata in guerra.", correct: false }
+        ],
+        lesson: "L’8 maggio 1945 finì la guerra in Europa, ma il Giappone continuò a resistere. La Seconda guerra mondiale terminò definitivamente il 2 settembre 1945 con la resa giapponese."
+      },
+      {
+        q: "Che cosa furono i processi di Norimberga?",
+        options: [
+          { text: "Tribunali internazionali che giudicarono i principali responsabili nazisti per crimini di guerra e crimini contro l’umanità.", correct: true },
+          { text: "Trattative segrete tra Germania e Giappone per continuare la guerra.", correct: false },
+          { text: "Accordi economici per ricostruire l’Italia fascista.", correct: false }
+        ],
+        lesson: "Dopo la guerra, i processi di Norimberga giudicarono i principali responsabili nazisti. Furono importanti perché affermarono il principio dei crimini contro l’umanità."
+      }
+    ];
+
+    let currentQuestions = [];
+
+    const quiz = document.getElementById("quiz");
+    const progressBar = document.getElementById("progressBar");
+    const answeredLabel = document.getElementById("answeredLabel");
+    const statusLabel = document.getElementById("statusLabel");
+    const submitBtn = document.getElementById("submitBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const printBtn = document.getElementById("printBtn");
+    const results = document.getElementById("results");
+    const resultMeta = document.getElementById("resultMeta");
+    const resultTitle = document.getElementById("resultTitle");
+    const judgement = document.getElementById("judgement");
+    const recovery = document.getElementById("recovery");
+    const scoreValue = document.getElementById("scoreValue");
+    const scoreCircle = document.getElementById("scoreCircle");
+
+    function shuffleArray(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function prepareRandomizedQuestions() {
+      currentQuestions = shuffleArray(questionBank).map(question => ({
+        q: question.q,
+        lesson: question.lesson,
+        options: shuffleArray(question.options).map(option => ({ ...option }))
+      }));
+    }
+
+    function letter(i) {
+      return ["A", "B", "C"][i];
+    }
+
+    function renderQuiz() {
+      quiz.innerHTML = "";
+
+      currentQuestions.forEach((item, qi) => {
+        const article = document.createElement("article");
+        article.className = "question";
+        article.id = `q${qi + 1}`;
+
+        article.innerHTML = `
+          <div class="qtop">
+            <div class="num">${qi + 1}</div>
+            <h2>${item.q}</h2>
+          </div>
+          <div class="options">
+            ${item.options.map((opt, oi) => `
+              <label class="option" data-q="${qi}" data-o="${oi}">
+                <input type="radio" name="q${qi}" value="${oi}" />
+                <span><strong>${letter(oi)}.</strong> ${opt.text}</span>
+              </label>
+            `).join("")}
+          </div>
+          <div class="mini-feedback" id="fb${qi}"></div>
+        `;
+
+        quiz.appendChild(article);
+      });
+    }
+
+    function getAnswers() {
+      return currentQuestions.map((_, qi) => {
+        const checked = document.querySelector(`input[name="q${qi}"]:checked`);
+        return checked ? Number(checked.value) : null;
+      });
+    }
+
+    function updateProgress() {
+      const answers = getAnswers();
+      const answered = answers.filter(v => v !== null).length;
+      const pct = Math.round((answered / currentQuestions.length) * 100);
+
+      progressBar.style.width = pct + "%";
+      answeredLabel.textContent = `Risposte date: ${answered}/${currentQuestions.length}`;
+      statusLabel.textContent = answered === currentQuestions.length ? "Puoi concludere il test" : "Test in corso";
+    }
+
+    function judgementText(vote) {
+      if (vote >= 9) return "Ottimo: cronologia, lessico e nessi storici sono solidi.";
+      if (vote >= 8) return "Buono: quadro storico chiaro, con pochi punti da rinforzare.";
+      if (vote >= 6) return "Sufficiente: le basi ci sono, ma alcuni passaggi vanno consolidati.";
+      if (vote >= 5) return "Incerto: serve riprendere date, cause e conseguenze.";
+      return "Da recuperare: la sequenza storica va ricostruita con calma.";
+    }
+
+    function submitQuiz() {
+      const answers = getAnswers();
+      const unanswered = answers
+        .map((v, i) => v === null ? i + 1 : null)
+        .filter(Boolean);
+
+      if (unanswered.length) {
+        alert("Devi rispondere a tutte le domande. Mancano: " + unanswered.join(", "));
+        document.getElementById(`q${unanswered[0]}`).scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      let correct = 0;
+      const wrong = [];
+
+      document.querySelectorAll(".option").forEach(el => el.classList.remove("correct", "wrong"));
+      document.querySelectorAll(".mini-feedback").forEach(el => {
+        el.style.display = "none";
+        el.innerHTML = "";
+      });
+
+      answers.forEach((ans, qi) => {
+        const selectedOption = currentQuestions[qi].options[ans];
+        const rightIndex = currentQuestions[qi].options.findIndex(option => option.correct);
+
+        document.querySelector(`.option[data-q="${qi}"][data-o="${rightIndex}"]`).classList.add("correct");
+
+        if (selectedOption.correct) {
+          correct++;
+        } else {
+          wrong.push(qi);
+          document.querySelector(`.option[data-q="${qi}"][data-o="${ans}"]`).classList.add("wrong");
+          const fb = document.getElementById(`fb${qi}`);
+          fb.style.display = "block";
+          fb.innerHTML = `<strong>Da riprendere:</strong> ${currentQuestions[qi].lesson}`;
+        }
+      });
+
+      const vote = Math.round((correct / currentQuestions.length) * 100) / 10;
+      const pct = Math.round((correct / currentQuestions.length) * 100);
+      const deg = Math.round((correct / currentQuestions.length) * 360);
+
+      scoreValue.textContent = vote.toFixed(1).replace(".", ",");
+      scoreCircle.style.setProperty("--deg", deg + "deg");
+      resultTitle.textContent = `Report finale: ${correct}/${currentQuestions.length} corrette`;
+      resultMeta.textContent = `Hai risposto correttamente al ${pct}% delle domande. Voto finale: ${vote.toFixed(1).replace(".", ",")}/10.`;
+      judgement.textContent = judgementText(vote);
+
+      recovery.innerHTML = "";
+
+      if (wrong.length === 0) {
+        recovery.innerHTML = `
+          <div class="recovery-item no-errors">
+            <h3>Nessuna mini-lezione necessaria</h3>
+            <p>Tutte le risposte sono corrette. Qui non c’è solo memoria: c’è orientamento storico.</p>
+          </div>
+        `;
+      } else {
+        wrong.forEach(qi => {
+          const rightIndex = currentQuestions[qi].options.findIndex(option => option.correct);
+          const div = document.createElement("div");
+          div.className = "recovery-item";
+          div.innerHTML = `
+            <h3>Domanda ${qi + 1} · risposta corretta: ${letter(rightIndex)}</h3>
+            <p>${currentQuestions[qi].lesson}</p>
+          `;
+          recovery.appendChild(div);
+        });
+      }
+
+      results.style.display = "block";
+      statusLabel.textContent = "Test concluso";
+      results.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function startNewTest() {
+      prepareRandomizedQuestions();
+      renderQuiz();
+      results.style.display = "none";
+      scoreCircle.style.setProperty("--deg", "0deg");
+      scoreValue.textContent = "0";
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    quiz.addEventListener("change", updateProgress);
+    submitBtn.addEventListener("click", submitQuiz);
+    resetBtn.addEventListener("click", startNewTest);
+    printBtn.addEventListener("click", () => window.print());
+
+    startNewTest();
+  </script>
+</body>
+</html>
