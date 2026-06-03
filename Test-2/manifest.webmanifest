@@ -1,0 +1,9 @@
+{
+  "name": "Test alternativo - Seconda guerra mondiale",
+  "short_name": "Test WWII 2",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#7f1d1d",
+  "description": "Secondo test interattivo randomizzato con report e salvataggio risultati."
+}

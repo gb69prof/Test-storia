@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test alternativo - Seconda guerra mondiale</title>
+  <meta name="description" content="Secondo test alternativo sulla Seconda guerra mondiale: 20 domande nuove, 4 risposte, report finale, salvataggio del risultato e mini-lezioni di recupero." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#7f1d1d" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg2: #1e293b;
+      --card: rgba(255, 255, 255, 0.96);
+      --soft: #f8fafc;
+      --text: #111827;
+      --muted: #64748b;
+      --line: #e5e7eb;
+      --accent: #7f1d1d;
+      --accent2: #d97706;
+      --ok: #047857;
+      --bad: #b91c1c;
+      --warn: #92400e;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+      --radius: 26px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(217,119,6,.30), transparent 34%),
+        radial-gradient(circle at 90% 0%, rgba(127,29,29,.34), transparent 36%),
+        linear-gradient(135deg, #020617 0%, #111827 48%, #1e293b 100%);
+    }
+
+    header {
+      max-width: 1180px;
+      margin: auto;
+      padding: 48px 20px 28px;
+      color: white;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr minmax(260px, 340px);
+      gap: 24px;
+      align-items: end;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(8px);
+      font-size: .92rem;
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      font-size: clamp(2rem, 5vw, 4.25rem);
+      line-height: .98;
+      letter-spacing: -0.045em;
+    }
+
+    header p {
+      max-width: 820px;
+      margin: 0;
+      color: rgba(255,255,255,.84);
+      line-height: 1.65;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+    }
+
+    .side-card {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(10px);
+      color: rgba(255,255,255,.88);
+      line-height: 1.5;
+    }
+
+    .side-card strong {
+      display: block;
+      color: white;
+      font-size: 1.16rem;
+      margin-bottom: 6px;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto 56px;
+      padding: 0 20px;
+    }
+
+    .panel {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.5);
+      box-shadow: var(--shadow);
+      overflow: clip;
+    }
+
+    .student-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 12px;
+      align-items: end;
+      padding: 18px;
+      background: linear-gradient(135deg, rgba(127,29,29,.08), rgba(217,119,6,.09));
+      border-bottom: 1px solid var(--line);
+    }
+
+    label.small-label {
+      display: block;
+      font-weight: 800;
+      font-size: .86rem;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"], input[type="date"] {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 15px;
+      font: inherit;
+      background: white;
+      outline: none;
+    }
+
+    input[type="text"]:focus, input[type="date"]:focus {
+      border-color: var(--accent2);
+      box-shadow: 0 0 0 4px rgba(217,119,6,.15);
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 16px 18px;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+      font-size: .92rem;
+      color: var(--muted);
+    }
+
+    .progress {
+      height: 10px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress > div {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .25s ease;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-weight: 800;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #450a0a);
+      box-shadow: 0 8px 20px rgba(127,29,29,.24);
+      transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    button:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+    button.secondary { background: #334155; box-shadow: none; }
+    button.light { color: var(--accent); background: #fff7ed; border: 1px solid #fed7aa; box-shadow: none; }
+    button.danger { background: #991b1b; box-shadow: none; }
+
+    .quiz {
+      padding: 18px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .question {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: white;
+      overflow: hidden;
+    }
+
+    .question-head {
+      padding: 17px 18px 12px;
+      display: grid;
+      gap: 6px;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .q-number {
+      color: var(--accent);
+      font-size: .86rem;
+      font-weight: 900;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .question h2 {
+      margin: 0;
+      font-size: clamp(1.06rem, 2vw, 1.22rem);
+      line-height: 1.35;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      padding: 14px 18px 18px;
+    }
+
+    .option {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: start;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      cursor: pointer;
+      transition: border-color .15s ease, background .15s ease, transform .15s ease;
+    }
+
+    .option:hover { border-color: var(--accent2); background: #fffbeb; transform: translateY(-1px); }
+    .option input { margin-top: 3px; accent-color: var(--accent); }
+    .option strong { color: var(--accent); margin-right: 4px; }
+
+    .feedback {
+      display: none;
+      margin: 0 18px 18px;
+      border-radius: 16px;
+      padding: 12px 14px;
+      line-height: 1.55;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #7c2d12;
+    }
+
+    .question.correct { border-color: rgba(4,120,87,.5); }
+    .question.wrong { border-color: rgba(185,28,28,.5); }
+    .question.correct .question-head { background: #ecfdf5; }
+    .question.wrong .question-head { background: #fef2f2; }
+
+    .results {
+      display: none;
+      border-top: 1px solid var(--line);
+      background: #f8fafc;
+      padding: 22px 18px 24px;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: minmax(190px, 240px) 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .score-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .score-circle {
+      width: 150px;
+      height: 150px;
+      margin: 4px auto 12px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle closest-side, white 72%, transparent 73%),
+        conic-gradient(var(--accent) var(--deg, 0deg), #e5e7eb 0deg);
+    }
+
+    .score-circle span {
+      font-size: 2.2rem;
+      font-weight: 950;
+      color: var(--accent);
+    }
+
+    .result-text {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 18px;
+    }
+
+    .result-text h2 { margin: 0 0 8px; }
+    .meta { color: var(--muted); line-height: 1.55; margin: 0 0 12px; }
+    .judgement { font-weight: 900; margin: 10px 0 0; }
+
+    .save-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 16px 0 0;
+    }
+
+    .recovery {
+      margin-top: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .recovery-item {
+      background: white;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--accent);
+      border-radius: 16px;
+      padding: 14px;
+      line-height: 1.55;
+    }
+
+    .recovery-item.ok { border-left-color: var(--ok); }
+    .recovery-item h3 { margin: 0 0 6px; font-size: 1rem; }
+    .recovery-item p { margin: 0; }
+
+    .saved {
+      display: none;
+      margin-top: 18px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .saved h2 {
+      margin: 0;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      font-size: 1.15rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .94rem;
+    }
+
+    th, td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th { background: #f8fafc; color: #334155; }
+
+    .notice {
+      padding: 14px 18px;
+      color: var(--muted);
+      line-height: 1.5;
+      border-top: 1px solid var(--line);
+      font-size: .95rem;
+    }
+
+    @media (max-width: 850px) {
+      .hero, .toolbar, .student-box, .results-grid { grid-template-columns: 1fr; }
+      .actions { justify-content: stretch; }
+      button { width: 100%; }
+      .side-card { max-width: none; }
+    }
+
+    @media print {
+      body { background: white; }
+      header, .toolbar, .student-box, .save-row, .saved, .notice { display: none !important; }
+      main { max-width: none; margin: 0; padding: 0; }
+      .panel, .question, .result-text, .score-card, .recovery-item { box-shadow: none; border-color: #bbb; }
+      .quiz { display: none; }
+      .results { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <div>
+        <span class="badge">Test alternativo · Seconda guerra mondiale</span>
+        <h1>La guerra totale e le sue svolte</h1>
+        <p>20 domande nuove, quattro risposte per ogni domanda, una sola corretta. A ogni ricaricamento cambiano sia l’ordine delle domande sia quello delle risposte. Alla fine appare il report con voto, recupero sugli errori e salvataggio del risultato.</p>
+      </div>
+      <aside class="side-card">
+        <strong>Uso didattico</strong>
+        Il test funziona anche da GitHub Pages. I risultati salvati restano nel browser usato dallo studente e possono essere esportati in CSV.
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <div class="student-box">
+        <div>
+          <label class="small-label" for="studentName">Nome e cognome</label>
+          <input id="studentName" type="text" placeholder="Scrivi il nome di chi svolge il test" autocomplete="name" />
+        </div>
+        <div>
+          <label class="small-label" for="testDate">Data</label>
+          <input id="testDate" type="date" />
+        </div>
+        <button id="loadSavedBtn" class="light" type="button">Mostra risultati salvati</button>
+      </div>
+
+      <div class="toolbar">
+        <div>
+          <div class="progress-label">
+            <span id="answeredLabel">Risposte date: 0/20</span>
+            <span id="statusLabel">Test in corso</span>
+          </div>
+          <div class="progress" aria-label="Avanzamento test"><div id="progressBar"></div></div>
+        </div>
+        <div class="actions">
+          <button id="submitBtn" type="button">Concludi test</button>
+          <button id="resetBtn" class="secondary" type="button">Ricarica / nuovo ordine</button>
+        </div>
+      </div>
+
+      <div id="quiz" class="quiz" aria-live="polite"></div>
+
+      <section id="results" class="results" aria-live="polite">
+        <div class="results-grid">
+          <div class="score-card">
+            <div id="scoreCircle" class="score-circle"><span id="scoreValue">0</span></div>
+            <strong>Voto in decimi</strong>
+            <p id="scoreDetails" class="meta"></p>
+          </div>
+          <div class="result-text">
+            <h2 id="resultTitle">Report finale</h2>
+            <p id="resultMeta" class="meta"></p>
+            <p id="judgement" class="judgement"></p>
+            <div class="save-row">
+              <button id="saveResultBtn" type="button">Salva risultato</button>
+              <button id="downloadResultBtn" class="light" type="button">Scarica report</button>
+              <button id="exportCsvBtn" class="light" type="button">Esporta CSV risultati</button>
+              <button id="printBtn" class="secondary" type="button">Stampa report</button>
+            </div>
+          </div>
+        </div>
+        <div id="recovery" class="recovery"></div>
+        <section id="savedBox" class="saved">
+          <h2>Risultati salvati su questo dispositivo</h2>
+          <div id="savedTable"></div>
+        </section>
+      </section>
+
+      <p class="notice">Nota tecnica: il salvataggio avviene nel browser tramite localStorage. Su GitHub Pages funziona senza server; se lo studente cambia dispositivo o browser, i risultati non vengono trasferiti automaticamente.</p>
+    </section>
+  </main>
+
+  <script src="questions.js"></script>
+  <script>
+    const STORAGE_KEY = "gbprof_test_seconda_guerra_alternativo_risultati_v1";
+    const quiz = document.getElementById("quiz");
+    const progressBar = document.getElementById("progressBar");
+    const answeredLabel = document.getElementById("answeredLabel");
+    const statusLabel = document.getElementById("statusLabel");
+    const submitBtn = document.getElementById("submitBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const results = document.getElementById("results");
+    const resultMeta = document.getElementById("resultMeta");
+    const resultTitle = document.getElementById("resultTitle");
+    const judgement = document.getElementById("judgement");
+    const recovery = document.getElementById("recovery");
+    const scoreValue = document.getElementById("scoreValue");
+    const scoreDetails = document.getElementById("scoreDetails");
+    const scoreCircle = document.getElementById("scoreCircle");
+    const saveResultBtn = document.getElementById("saveResultBtn");
+    const downloadResultBtn = document.getElementById("downloadResultBtn");
+    const exportCsvBtn = document.getElementById("exportCsvBtn");
+    const printBtn = document.getElementById("printBtn");
+    const loadSavedBtn = document.getElementById("loadSavedBtn");
+    const savedBox = document.getElementById("savedBox");
+    const savedTable = document.getElementById("savedTable");
+    const studentName = document.getElementById("studentName");
+    const testDate = document.getElementById("testDate");
+
+    let currentQuestions = [];
+    let lastReport = null;
+
+    function shuffle(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function letter(index) {
+      return ["A", "B", "C", "D"][index] || "?";
+    }
+
+    function todayIso() {
+      const now = new Date();
+      const offset = now.getTimezoneOffset();
+      const local = new Date(now.getTime() - offset * 60000);
+      return local.toISOString().slice(0, 10);
+    }
+
+    function prepareQuestions() {
+      currentQuestions = shuffle(QUESTION_BANK).slice(0, 20).map((q) => ({
+        ...q,
+        options: shuffle(q.options)
+      }));
+    }
+
+    function renderQuiz() {
+      quiz.innerHTML = "";
+      currentQuestions.forEach((item, qi) => {
+        const article = document.createElement("article");
+        article.className = "question";
+        article.id = `question-${qi}`;
+        article.innerHTML = `
+          <div class="question-head">
+            <span class="q-number">Domanda ${qi + 1} di ${currentQuestions.length}</span>
+            <h2>${escapeHtml(item.question)}</h2>
+          </div>
+          <div class="options">
+            ${item.options.map((opt, oi) => `
+              <label class="option">
+                <input type="radio" name="q${qi}" value="${oi}" />
+                <span><strong>${letter(oi)}.</strong> ${escapeHtml(opt.text)}</span>
+              </label>
+            `).join("")}
+          </div>
+          <div class="feedback" id="feedback-${qi}"></div>
+        `;
+        quiz.appendChild(article);
+      });
+      quiz.addEventListener("change", updateProgress);
+      updateProgress();
+    }
+
+    function getAnswers() {
+      return currentQuestions.map((_, qi) => {
+        const checked = document.querySelector(`input[name="q${qi}"]:checked`);
+        return checked ? Number(checked.value) : null;
+      });
+    }
+
+    function updateProgress() {
+      const answers = getAnswers();
+      const answered = answers.filter(v => v !== null).length;
+      const pct = Math.round((answered / currentQuestions.length) * 100);
+      progressBar.style.width = `${pct}%`;
+      answeredLabel.textContent = `Risposte date: ${answered}/${currentQuestions.length}`;
+      statusLabel.textContent = answered === currentQuestions.length ? "Puoi concludere il test" : "Test in corso";
+    }
+
+    function buildJudgement(vote) {
+      if (vote >= 9) return "Ottimo: conoscenza solida e collegamenti ben tenuti.";
+      if (vote >= 8) return "Buono: quadro storico chiaro, con pochi punti da rifinire.";
+      if (vote >= 6) return "Sufficiente: i passaggi fondamentali ci sono, ma vanno consolidati.";
+      if (vote >= 5) return "Fragile: alcuni nuclei sono presenti, ma la sequenza storica non è ancora sicura.";
+      return "Da recuperare: serve riprendere cause, svolte e conseguenze del conflitto.";
+    }
+
+    function requireStudentName() {
+      const name = studentName.value.trim();
+      if (!name) {
+        studentName.focus();
+        studentName.style.borderColor = "#b91c1c";
+        studentName.style.boxShadow = "0 0 0 4px rgba(185,28,28,.14)";
+        setTimeout(() => {
+          studentName.style.borderColor = "";
+          studentName.style.boxShadow = "";
+        }, 1600);
+        return null;
+      }
+      return name;
+    }
+
+    function gradeTest() {
+      const answers = getAnswers();
+      const unanswered = answers
+        .map((value, index) => value === null ? index + 1 : null)
+        .filter(Boolean);
+
+      if (unanswered.length) {
+        alert(`Rispondi prima a tutte le domande. Mancano: ${unanswered.join(", ")}.`);
+        return;
+      }
+
+      const name = requireStudentName();
+      if (!name) {
+        alert("Inserisci il nome di chi svolge il test prima di concludere.");
+        return;
+      }
+
+      let correct = 0;
+      const wrong = [];
+      const details = [];
+
+      currentQuestions.forEach((item, qi) => {
+        const selectedIndex = answers[qi];
+        const selectedOption = item.options[selectedIndex];
+        const rightIndex = item.options.findIndex(option => option.correct);
+        const rightOption = item.options[rightIndex];
+        const isCorrect = Boolean(selectedOption && selectedOption.correct);
+        const card = document.getElementById(`question-${qi}`);
+        const fb = document.getElementById(`feedback-${qi}`);
+        card.classList.toggle("correct", isCorrect);
+        card.classList.toggle("wrong", !isCorrect);
+        fb.style.display = "block";
+
+        if (isCorrect) {
+          correct++;
+          fb.innerHTML = `<strong>Corretto.</strong> Hai riconosciuto il passaggio storico.`;
+        } else {
+          wrong.push({ index: qi, question: item.question, lesson: item.lesson, right: rightOption.text, selected: selectedOption.text });
+          fb.innerHTML = `<strong>Da riprendere.</strong> Risposta corretta: ${letter(rightIndex)}. ${escapeHtml(item.lesson)}`;
+        }
+
+        details.push({
+          number: qi + 1,
+          question: item.question,
+          selected: selectedOption.text,
+          correctAnswer: rightOption.text,
+          isCorrect,
+          lesson: item.lesson
+        });
+      });
+
+      const vote = Math.round((correct / currentQuestions.length) * 100) / 10;
+      const pct = Math.round((correct / currentQuestions.length) * 100);
+      const deg = Math.round((correct / currentQuestions.length) * 360);
+      const dateValue = testDate.value || todayIso();
+      const timestamp = new Date().toISOString();
+
+      lastReport = {
+        id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+        studentName: name,
+        date: dateValue,
+        timestamp,
+        correct,
+        total: currentQuestions.length,
+        vote,
+        percentage: pct,
+        details
+      };
+
+      scoreValue.textContent = vote.toLocaleString("it-IT", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+      scoreCircle.style.setProperty("--deg", `${deg}deg`);
+      scoreDetails.textContent = `${correct}/${currentQuestions.length} risposte corrette · ${pct}%`;
+      resultTitle.textContent = `Report finale: ${name}`;
+      resultMeta.textContent = `Data: ${dateValue} · Risposte corrette: ${correct}/${currentQuestions.length} · Percentuale: ${pct}%`;
+      judgement.textContent = buildJudgement(vote);
+
+      if (wrong.length === 0) {
+        recovery.innerHTML = `<div class="recovery-item ok"><h3>Nessun recupero necessario</h3><p>Tutte le risposte sono corrette. Il quadro storico risulta ben assimilato.</p></div>`;
+      } else {
+        recovery.innerHTML = `
+          <h2>Mini lezioni di recupero per le risposte sbagliate</h2>
+          ${wrong.map(item => `
+            <div class="recovery-item">
+              <h3>Domanda ${item.index + 1}</h3>
+              <p><strong>Quesito:</strong> ${escapeHtml(item.question)}</p>
+              <p><strong>Risposta corretta:</strong> ${escapeHtml(item.right)}</p>
+              <p><strong>Ripasso:</strong> ${escapeHtml(item.lesson)}</p>
+            </div>
+          `).join("")}
+        `;
+      }
+
+      results.style.display = "block";
+      submitBtn.disabled = true;
+      document.querySelectorAll('input[type="radio"]').forEach(input => input.disabled = true);
+      results.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function getSavedResults() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      } catch (_) {
+        return [];
+      }
+    }
+
+    function setSavedResults(items) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    }
+
+    function saveCurrentResult() {
+      if (!lastReport) {
+        alert("Concludi prima il test.");
+        return;
+      }
+      const items = getSavedResults();
+      items.unshift(lastReport);
+      setSavedResults(items.slice(0, 200));
+      renderSavedResults();
+      alert("Risultato salvato su questo dispositivo.");
+    }
+
+    function renderSavedResults() {
+      const items = getSavedResults();
+      savedBox.style.display = "block";
+      if (!items.length) {
+        savedTable.innerHTML = `<p class="notice">Non ci sono ancora risultati salvati su questo dispositivo.</p>`;
+        return;
+      }
+      savedTable.innerHTML = `
+        <table>
+          <thead>
+            <tr><th>Data</th><th>Nome</th><th>Voto</th><th>Corrette</th><th>Percentuale</th></tr>
+          </thead>
+          <tbody>
+            ${items.map(item => `
+              <tr>
+                <td>${escapeHtml(item.date || "")}</td>
+                <td>${escapeHtml(item.studentName || "")}</td>
+                <td>${Number(item.vote).toLocaleString("it-IT", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
+                <td>${item.correct}/${item.total}</td>
+                <td>${item.percentage}%</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function makeReportText(report) {
+      const lines = [];
+      lines.push("REPORT TEST - SECONDA GUERRA MONDIALE");
+      lines.push(`Nome: ${report.studentName}`);
+      lines.push(`Data: ${report.date}`);
+      lines.push(`Voto: ${report.vote.toLocaleString("it-IT", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}/10`);
+      lines.push(`Risposte corrette: ${report.correct}/${report.total} (${report.percentage}%)`);
+      lines.push("");
+      lines.push("Dettaglio risposte:");
+      report.details.forEach(item => {
+        lines.push("");
+        lines.push(`${item.number}. ${item.question}`);
+        lines.push(`Risposta data: ${item.selected}`);
+        lines.push(`Risposta corretta: ${item.correctAnswer}`);
+        lines.push(`Esito: ${item.isCorrect ? "corretta" : "errata"}`);
+        if (!item.isCorrect) lines.push(`Mini lezione: ${item.lesson}`);
+      });
+      return lines.join("\n");
+    }
+
+    function downloadBlob(filename, content, type) {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadCurrentReport() {
+      if (!lastReport) {
+        alert("Concludi prima il test.");
+        return;
+      }
+      const safeName = lastReport.studentName.toLowerCase().replace(/[^a-z0-9àèéìòù]+/gi, "-").replace(/^-|-$/g, "") || "studente";
+      downloadBlob(`report-seconda-guerra-${safeName}.txt`, makeReportText(lastReport), "text/plain;charset=utf-8");
+    }
+
+    function exportCsv() {
+      const items = getSavedResults();
+      if (!items.length) {
+        alert("Non ci sono risultati salvati da esportare.");
+        return;
+      }
+      const header = ["data", "nome", "voto", "corrette", "totale", "percentuale", "timestamp"];
+      const rows = items.map(item => [
+        item.date,
+        item.studentName,
+        String(item.vote).replace(".", ","),
+        item.correct,
+        item.total,
+        item.percentage,
+        item.timestamp
+      ]);
+      const csv = [header, ...rows]
+        .map(row => row.map(value => `"${String(value ?? "").replaceAll('"', '""')}"`).join(";"))
+        .join("\n");
+      downloadBlob("risultati-test-seconda-guerra.csv", csv, "text/csv;charset=utf-8");
+    }
+
+    function resetTest() {
+      window.location.reload();
+    }
+
+    function init() {
+      testDate.value = todayIso();
+      prepareQuestions();
+      renderQuiz();
+      submitBtn.addEventListener("click", gradeTest);
+      resetBtn.addEventListener("click", resetTest);
+      saveResultBtn.addEventListener("click", saveCurrentResult);
+      downloadResultBtn.addEventListener("click", downloadCurrentReport);
+      exportCsvBtn.addEventListener("click", exportCsv);
+      printBtn.addEventListener("click", () => window.print());
+      loadSavedBtn.addEventListener("click", renderSavedResults);
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
