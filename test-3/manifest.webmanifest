@@ -1,0 +1,10 @@
+{
+  "name": "Test concettuale - Seconda guerra mondiale",
+  "short_name": "Test Concetti WWII",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#111827",
+  "description": "Test concettuale randomizzato sulla Seconda guerra mondiale con report e salvataggio risultati.",
+  "icons": []
+}

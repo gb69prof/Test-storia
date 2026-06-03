@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Test concettuale - Seconda guerra mondiale</title>
+  <meta name="description" content="Test concettuale randomizzato sulla Seconda guerra mondiale: 20 domande, report finale e salvataggio risultati." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <style>
+    :root {
+      --bg: #111827;
+      --panel: rgba(255,255,255,.08);
+      --panel2: rgba(255,255,255,.12);
+      --text: #f9fafb;
+      --muted: #d1d5db;
+      --accent: #fbbf24;
+      --accent2: #93c5fd;
+      --ok: #86efac;
+      --bad: #fca5a5;
+      --shadow: 0 22px 60px rgba(0,0,0,.35);
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(251,191,36,.18), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(147,197,253,.18), transparent 34%),
+        linear-gradient(135deg, #0f172a, #111827 42%, #1f2937);
+      line-height: 1.55;
+    }
+    .wrap { width: min(1100px, calc(100% - 28px)); margin: 0 auto; padding: 28px 0 46px; }
+    header.hero {
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    header.hero::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: rgba(251,191,36,.12);
+      filter: blur(2px);
+    }
+    .kicker { color: var(--accent); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; font-size: .82rem; }
+    h1 { margin: 8px 0 10px; font-size: clamp(2rem, 5vw, 4rem); line-height: 1; }
+    .subtitle { color: var(--muted); font-size: clamp(1rem, 2vw, 1.22rem); max-width: 820px; }
+    .grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 18px; margin-top: 18px; }
+    .card {
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      backdrop-filter: blur(10px);
+    }
+    .small { color: var(--muted); font-size: .95rem; }
+    label { display: block; margin: 12px 0 7px; color: #fff; font-weight: 700; }
+    input[type="text"] {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 14px;
+      padding: 14px 15px;
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+    }
+    input[type="text"]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(251,191,36,.16); }
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      color: #111827;
+      background: var(--accent);
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform .12s ease, filter .12s ease;
+      margin: 6px 6px 6px 0;
+    }
+    button:hover { transform: translateY(-1px); filter: brightness(1.04); }
+    button.secondary { background: rgba(255,255,255,.16); color: #fff; border: 1px solid rgba(255,255,255,.2); }
+    button.danger { background: #fecaca; color: #7f1d1d; }
+    button:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+    .hide { display: none !important; }
+    .progressbar { height: 10px; background: rgba(255,255,255,.12); border-radius: 999px; overflow: hidden; margin: 14px 0 8px; }
+    .progressbar > div { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 999px; transition: width .2s ease; }
+    .questionTop { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); }
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 7px 11px; border-radius: 999px; background: rgba(255,255,255,.10); color: #fff; font-size: .9rem; }
+    .qtext { font-size: clamp(1.2rem, 2.6vw, 1.7rem); font-weight: 900; margin: 16px 0; }
+    .answers { display: grid; gap: 10px; margin-top: 12px; }
+    .answer {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      text-align: left;
+      font-weight: 700;
+      min-height: 68px;
+    }
+    .answer span:first-child {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      background: rgba(255,255,255,.14);
+      color: var(--accent);
+      font-weight: 900;
+    }
+    .answer.selected { outline: 3px solid rgba(251,191,36,.32); border-color: var(--accent); background: rgba(251,191,36,.12); }
+    .navrow { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-top: 18px; }
+    .miniMap { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .dot {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      font-size: .82rem;
+      display: grid;
+      place-items: center;
+    }
+    .dot.done { background: rgba(134,239,172,.2); border-color: rgba(134,239,172,.5); }
+    .dot.current { outline: 3px solid rgba(251,191,36,.32); }
+    .resultHero {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .scorebox { padding: 18px; border-radius: 18px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); }
+    .scorebox strong { display: block; font-size: clamp(1.8rem, 5vw, 3rem); line-height: 1; margin-top: 4px; }
+    .review { display: grid; gap: 12px; margin-top: 16px; }
+    .reviewItem { padding: 16px; border-radius: 18px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); }
+    .reviewItem.ok { border-color: rgba(134,239,172,.55); }
+    .reviewItem.bad { border-color: rgba(252,165,165,.55); }
+    .correct { color: var(--ok); font-weight: 900; }
+    .wrong { color: var(--bad); font-weight: 900; }
+    table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 16px; margin-top: 12px; }
+    th, td { text-align: left; padding: 10px; border-bottom: 1px solid rgba(255,255,255,.10); vertical-align: top; }
+    th { color: var(--accent); background: rgba(255,255,255,.07); }
+    .footerNote { margin-top: 18px; color: var(--muted); font-size: .92rem; }
+    @media (max-width: 820px) {
+      .grid { grid-template-columns: 1fr; }
+      .resultHero { grid-template-columns: 1fr; }
+      .questionTop { align-items: flex-start; flex-direction: column; }
+      header.hero, .card { padding: 18px; }
+    }
+    @media print {
+      body { background: white; color: black; }
+      .hero, #quizSection, #startSection, #storageSection button, #resultActions { display: none !important; }
+      .card { box-shadow: none; border: 1px solid #ddd; color: black; background: white; }
+      .small, .footerNote { color: #333; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="kicker">Storia · Test concettuale</div>
+      <h1>Seconda guerra mondiale</h1>
+      <p class="subtitle">20 domande a risposta multipla. Non basta ricordare: bisogna capire rapporti, cause, scelte e conseguenze.</p>
+    </header>
+
+    <main class="grid">
+      <section id="startSection" class="card">
+        <h2>Avvio del test</h2>
+        <p class="small">A ogni apertura del test cambiano sia l'ordine delle domande sia l'ordine delle risposte. Il risultato resta salvato su questo dispositivo.</p>
+        <label for="studentName">Nome e cognome</label>
+        <input id="studentName" type="text" placeholder="Scrivi qui il nome di chi svolge il test" autocomplete="name" />
+        <div style="margin-top:14px">
+          <button id="startBtn">Inizia test</button>
+          <button id="demoBtn" class="secondary">Prova senza nome</button>
+        </div>
+        <p class="footerNote">Valutazione: 20 risposte corrette = 10/10. Ogni risposta vale 0,5 punti.</p>
+      </section>
+
+      <section id="storageSection" class="card">
+        <h2>Risultati salvati</h2>
+        <p class="small">Qui compaiono i risultati registrati nel browser. Puoi esportarli in CSV.</p>
+        <div id="savedResults"></div>
+        <div style="margin-top:12px">
+          <button id="exportCsvBtn" class="secondary">Esporta CSV</button>
+          <button id="clearResultsBtn" class="danger">Cancella risultati</button>
+        </div>
+      </section>
+    </main>
+
+    <section id="quizSection" class="card hide" style="margin-top:18px">
+      <div class="questionTop">
+        <div>
+          <span id="questionCounter" class="pill"></span>
+          <span id="answeredCounter" class="pill"></span>
+        </div>
+        <span id="studentBadge" class="pill"></span>
+      </div>
+      <div class="progressbar"><div id="progressFill"></div></div>
+      <div id="questionText" class="qtext"></div>
+      <div id="answersBox" class="answers"></div>
+      <div class="miniMap" id="miniMap"></div>
+      <div class="navrow">
+        <div>
+          <button id="prevBtn" class="secondary">Indietro</button>
+          <button id="nextBtn">Avanti</button>
+        </div>
+        <button id="finishBtn" class="secondary">Consegna test</button>
+      </div>
+    </section>
+
+    <section id="resultSection" class="card hide" style="margin-top:18px">
+      <h2>Report finale</h2>
+      <p id="resultIntro" class="small"></p>
+      <div class="resultHero">
+        <div class="scorebox"><span>Risposte corrette</span><strong id="scoreCorrect"></strong></div>
+        <div class="scorebox"><span>Voto</span><strong id="scoreGrade"></strong></div>
+        <div class="scorebox"><span>Percentuale</span><strong id="scorePercent"></strong></div>
+      </div>
+      <div id="resultActions">
+        <button id="downloadReportBtn">Scarica report</button>
+        <button id="restartBtn" class="secondary">Rifai test</button>
+        <button onclick="window.print()" class="secondary">Stampa</button>
+      </div>
+      <div id="reviewBox" class="review"></div>
+    </section>
+  </div>
+
+  <script src="questions.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const STORAGE_KEY = "test_seconda_guerra_concetti_results_v1";
+
+    let quiz = [];
+    let currentIndex = 0;
+    let studentName = "";
+    let completedReport = null;
+
+    function shuffle(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function prepareQuiz() {
+      quiz = shuffle(QUESTION_BANK).slice(0, 20).map((q, index) => ({
+        ...q,
+        displayNumber: index + 1,
+        shuffledAnswers: shuffle(q.answers).map((a, answerIndex) => ({ ...a, answerIndex })),
+        selectedAnswerIndex: null
+      }));
+      currentIndex = 0;
+    }
+
+    function startQuiz(name) {
+      studentName = (name || "Studente").trim() || "Studente";
+      prepareQuiz();
+      $("studentBadge").textContent = studentName;
+      $("startSection").classList.add("hide");
+      $("resultSection").classList.add("hide");
+      $("quizSection").classList.remove("hide");
+      renderQuestion();
+      window.scrollTo({ top: $("quizSection").offsetTop - 12, behavior: "smooth" });
+    }
+
+    function renderQuestion() {
+      const q = quiz[currentIndex];
+      const answered = quiz.filter(item => item.selectedAnswerIndex !== null).length;
+      $("questionCounter").textContent = `Domanda ${currentIndex + 1} di ${quiz.length}`;
+      $("answeredCounter").textContent = `Risposte date: ${answered}/${quiz.length}`;
+      $("progressFill").style.width = `${(answered / quiz.length) * 100}%`;
+      $("questionText").textContent = q.question;
+      $("answersBox").innerHTML = "";
+
+      q.shuffledAnswers.forEach((answer, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "answer" + (q.selectedAnswerIndex === idx ? " selected" : "");
+        btn.type = "button";
+        btn.innerHTML = `<span>${String.fromCharCode(65 + idx)}</span><span>${answer.text}</span>`;
+        btn.addEventListener("click", () => {
+          q.selectedAnswerIndex = idx;
+          renderQuestion();
+        });
+        $("answersBox").appendChild(btn);
+      });
+
+      $("prevBtn").disabled = currentIndex === 0;
+      $("nextBtn").textContent = currentIndex === quiz.length - 1 ? "Fine" : "Avanti";
+      renderMiniMap();
+    }
+
+    function renderMiniMap() {
+      $("miniMap").innerHTML = "";
+      quiz.forEach((q, idx) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "dot" + (q.selectedAnswerIndex !== null ? " done" : "") + (idx === currentIndex ? " current" : "");
+        dot.textContent = idx + 1;
+        dot.title = `Vai alla domanda ${idx + 1}`;
+        dot.addEventListener("click", () => {
+          currentIndex = idx;
+          renderQuestion();
+        });
+        $("miniMap").appendChild(dot);
+      });
+    }
+
+    function finishQuiz() {
+      const missing = quiz.filter(q => q.selectedAnswerIndex === null).length;
+      if (missing > 0) {
+        const proceed = confirm(`Mancano ${missing} risposte. Vuoi consegnare comunque?`);
+        if (!proceed) return;
+      }
+
+      const details = quiz.map((q, idx) => {
+        const selected = q.selectedAnswerIndex === null ? null : q.shuffledAnswers[q.selectedAnswerIndex];
+        const correct = q.shuffledAnswers.find(a => a.correct);
+        return {
+          number: idx + 1,
+          question: q.question,
+          selected: selected ? selected.text : "Nessuna risposta",
+          correct: correct.text,
+          isCorrect: Boolean(selected && selected.correct),
+          explanation: q.explanation
+        };
+      });
+
+      const correctCount = details.filter(d => d.isCorrect).length;
+      const grade = correctCount / 2;
+      const percent = Math.round((correctCount / quiz.length) * 100);
+      completedReport = {
+        studentName,
+        date: new Date().toLocaleString("it-IT"),
+        correctCount,
+        total: quiz.length,
+        grade: grade.toFixed(1).replace(".", ","),
+        percent,
+        details
+      };
+
+      saveResult(completedReport);
+      showResult(completedReport);
+      renderSavedResults();
+    }
+
+    function showResult(report) {
+      $("quizSection").classList.add("hide");
+      $("resultSection").classList.remove("hide");
+      $("resultIntro").textContent = `${report.studentName} · ${report.date}`;
+      $("scoreCorrect").textContent = `${report.correctCount}/${report.total}`;
+      $("scoreGrade").textContent = `${report.grade}/10`;
+      $("scorePercent").textContent = `${report.percent}%`;
+
+      $("reviewBox").innerHTML = "";
+      report.details.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "reviewItem " + (item.isCorrect ? "ok" : "bad");
+        div.innerHTML = `
+          <strong>${item.number}. ${item.question}</strong>
+          <p>Risposta data: <span class="${item.isCorrect ? "correct" : "wrong"}">${escapeHtml(item.selected)}</span></p>
+          <p>Risposta corretta: <span class="correct">${escapeHtml(item.correct)}</span></p>
+          <p class="small"><strong>Per capire:</strong> ${escapeHtml(item.explanation)}</p>
+        `;
+        $("reviewBox").appendChild(div);
+      });
+      window.scrollTo({ top: $("resultSection").offsetTop - 12, behavior: "smooth" });
+    }
+
+    function escapeHtml(text) {
+      return String(text).replace(/[&<>'"]/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#039;", '"': "&quot;"
+      }[char]));
+    }
+
+    function getSavedResults() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+      catch { return []; }
+    }
+
+    function saveResult(report) {
+      const summary = {
+        studentName: report.studentName,
+        date: report.date,
+        correctCount: report.correctCount,
+        total: report.total,
+        grade: report.grade,
+        percent: report.percent
+      };
+      const results = getSavedResults();
+      results.unshift(summary);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(results.slice(0, 100)));
+    }
+
+    function renderSavedResults() {
+      const results = getSavedResults();
+      if (results.length === 0) {
+        $("savedResults").innerHTML = `<p class="small">Nessun risultato salvato.</p>`;
+        return;
+      }
+      const rows = results.map(r => `
+        <tr>
+          <td>${escapeHtml(r.studentName)}</td>
+          <td>${escapeHtml(r.date)}</td>
+          <td>${r.correctCount}/${r.total}</td>
+          <td>${escapeHtml(r.grade)}/10</td>
+          <td>${r.percent}%</td>
+        </tr>
+      `).join("");
+      $("savedResults").innerHTML = `
+        <table>
+          <thead><tr><th>Nome</th><th>Data</th><th>Corrette</th><th>Voto</th><th>%</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    function exportCsv() {
+      const results = getSavedResults();
+      if (!results.length) { alert("Non ci sono risultati da esportare."); return; }
+      const header = ["Nome", "Data", "Corrette", "Totale", "Voto", "Percentuale"];
+      const rows = results.map(r => [r.studentName, r.date, r.correctCount, r.total, r.grade, r.percent]);
+      const csv = [header, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(";")).join("\n");
+      downloadFile("risultati_test_concetti_seconda_guerra.csv", csv, "text/csv;charset=utf-8");
+    }
+
+    function downloadReport() {
+      if (!completedReport) return;
+      const lines = [];
+      lines.push("REPORT TEST CONCETTUALE - SECONDA GUERRA MONDIALE");
+      lines.push(`Nome: ${completedReport.studentName}`);
+      lines.push(`Data: ${completedReport.date}`);
+      lines.push(`Risultato: ${completedReport.correctCount}/${completedReport.total}`);
+      lines.push(`Voto: ${completedReport.grade}/10`);
+      lines.push(`Percentuale: ${completedReport.percent}%`);
+      lines.push("");
+      completedReport.details.forEach(item => {
+        lines.push(`${item.number}. ${item.question}`);
+        lines.push(`Risposta data: ${item.selected}`);
+        lines.push(`Risposta corretta: ${item.correct}`);
+        lines.push(`Spiegazione: ${item.explanation}`);
+        lines.push("");
+      });
+      const safeName = completedReport.studentName.toLowerCase().replace(/[^a-z0-9àèéìòù]+/gi, "_").replace(/^_+|_+$/g, "") || "studente";
+      downloadFile(`report_${safeName}_test_concetti.txt`, lines.join("\n"), "text/plain;charset=utf-8");
+    }
+
+    function downloadFile(filename, content, type) {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    $("startBtn").addEventListener("click", () => {
+      const name = $("studentName").value.trim();
+      if (!name) { alert("Inserisci nome e cognome prima di iniziare."); return; }
+      startQuiz(name);
+    });
+    $("demoBtn").addEventListener("click", () => startQuiz("Studente"));
+    $("prevBtn").addEventListener("click", () => { if (currentIndex > 0) { currentIndex--; renderQuestion(); } });
+    $("nextBtn").addEventListener("click", () => {
+      if (currentIndex < quiz.length - 1) { currentIndex++; renderQuestion(); }
+      else finishQuiz();
+    });
+    $("finishBtn").addEventListener("click", finishQuiz);
+    $("restartBtn").addEventListener("click", () => {
+      $("resultSection").classList.add("hide");
+      $("startSection").classList.remove("hide");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    $("downloadReportBtn").addEventListener("click", downloadReport);
+    $("exportCsvBtn").addEventListener("click", exportCsv);
+    $("clearResultsBtn").addEventListener("click", () => {
+      if (confirm("Vuoi cancellare tutti i risultati salvati su questo dispositivo?")) {
+        localStorage.removeItem(STORAGE_KEY);
+        renderSavedResults();
+      }
+    });
+
+    renderSavedResults();
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+    }
+  </script>
+</body>
+</html>
